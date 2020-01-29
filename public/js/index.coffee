@@ -18,7 +18,7 @@ csvJSON = (csv) ->
   lines = csv.split('\n')
   result = []
   # NOTE: If your columns contain commas in their values, you'll need
-  # to deal with those before doing the next step 
+  # to deal with those before doing the next step
   # (you might convert them to &&& or something, then covert them back later)
   # jsfiddle showing the issue https://jsfiddle.net/
   headers = lines[0].split(',')
@@ -40,7 +40,7 @@ csvJSON = (csv) ->
 labelConfig = (bgColor, position) ->
   if not position
     position = 'top'
-  
+
   return{
           normal: {
               show: true,
@@ -107,7 +107,7 @@ reloadCompare = ()->
   M = currentDate.getMinutes()
   if M <= 9
     M = "0" + M
-  
+
 
   jQuery("#desc").html "(截止至 #{currentDate.getFullYear()}-#{currentDate.getMonth()+1}-#{currentDate.getDate()} #{currentDate.getHours()}:#{M}   以 国家卫建委的新冠病毒数据 及 WHO的SARS数据 制图)"
   option = {
@@ -122,7 +122,7 @@ reloadCompare = ()->
                       backgroundColor: '#283b56'
                   }
               }
-            },  
+            },
             legend: {
                 data: legendData
                 top : 30
@@ -243,7 +243,7 @@ reloadCompare = ()->
             ]
         }
 
-  last = nConData[nConData.length-1]  
+  last = nConData[nConData.length-1]
 
 
   myChart.clear()
@@ -278,7 +278,7 @@ reload = ()->
     jQuery("#confirmed_suffix").html ""
     jQuery("#suspected").addClass "hidden"
     legendData = ['确诊']
-    
+
 
   xAxisData = []
   confirmData = []
@@ -292,13 +292,13 @@ reload = ()->
   dataOffset = 0
   if isMainChina
     dataOffset = 7
-  
+
 
 
 
   for i in [0...nConData.length-dataOffset] by 1
     item = nConData[i+dataOffset]
-  
+
     date = new Date (item['date'])
     xAxisData[i] = "#{date.getMonth()+1}.#{date.getDate()}"
     # confirmData[i] = []
@@ -334,7 +334,7 @@ reload = ()->
   M = currentDate.getMinutes()
   if M <= 9
     M = "0" + M
-  
+
 
   jQuery("#desc").html "(截止至 #{currentDate.getFullYear()}-#{currentDate.getMonth()+1}-#{currentDate.getDate()} #{currentDate.getHours()}:#{M}   以国家卫建委发布数据制图)"
   option = {
@@ -349,7 +349,7 @@ reload = ()->
                       backgroundColor: '#283b56'
                   }
               }
-            },  
+            },
             legend: {
                 data: legendData
                 top : 30
@@ -413,12 +413,12 @@ reload = ()->
               # {
               #     name: '严重',
               #     type: 'line',
-              #     data: seriousData 
+              #     data: seriousData
               #     itemStyle: {
               #       normal: {
               #           color: seriousLineColor
               #       },
-              #     } 
+              #     }
               #     label: labelConfig(seriousLabelBgColor)
               # },
               {
@@ -464,7 +464,7 @@ reload = ()->
             ]
         }
 
-  last = nConData[nConData.length-1]  
+  last = nConData[nConData.length-1]
   jQuery("#confirmed").html "#{parseInt(last.confirmed)}"
   jQuery("#suspected").html "#{parseInt(last.suspected)}"
   jQuery("#cured").html "#{parseInt(last.curedCase)}"
@@ -474,16 +474,16 @@ reload = ()->
   myChart.setOption option
   # sarsChart.setOption option
 
-# requestMainChinaData = ->
-#   jQuery.ajax {
-#     url : "http://view.inews.qq.com/g2/getOnsInfo?name=wuwei_ww_cn_day_counts"
-#     success : (result)->
-#       jsonStr = result.data
-#       array = JSON.parse jsonStr
-#       console.log Array
-
-#       requestAllRegionData()
-#   }
+requestMainChinaData = ->
+  apiUrl = "http://view.inews.qq.com/g2/getOnsInfo?name=wuwei_ww_cn_day_counts"
+  jQuery.ajax {
+    # url: apiUrl
+    url: '/api_proxy/get?url=' + encodeURIComponent apiUrl
+    success: (result)->
+      jsonStr = result.data
+      console.log JSON.parse jsonStr
+      requestAllRegionData()
+  }
 
 
 requestAllRegionData = ->
@@ -508,7 +508,7 @@ requestAllRegionData = ->
               date : time
               confirmed : number
             }
-            
+
       # console.log allRegionData
       reloadSelect()
 
@@ -521,7 +521,7 @@ reloadSelect = ->
     optionsHtml += "<option value ='#{key}'>#{key}</option>"
 
   jQuery("#select").html optionsHtml
-  
+
 
 jQuery(document).ready ->
 
@@ -536,7 +536,7 @@ jQuery(document).ready ->
   jQuery("#export").click ->
     html2canvas(document.querySelector("#all")).then (canvas) ->
       # base64Image = canvas.toDataURL('image/png').substring(22)
-      
+
       a = document.createElement('a');
       #toDataURL defaults to png, so we need to request a jpeg, then convert for file download.
       a.href = canvas.toDataURL("image/jpeg").replace("image/jpeg", "image/octet-stream");
@@ -550,7 +550,8 @@ jQuery(document).ready ->
         a.download = "2019-nCov-vc-sars-#{time}.jpg";
       else
         a.download = "2019-nCov-mainChina-#{time}.jpg";
-      
+
       a.click();
 
-  requestAllRegionData()
+  # requestAllRegionData()
+  requestMainChinaData()
