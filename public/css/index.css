@@ -11,12 +11,23 @@ body {
   width: 100%;
   max-width: 600px;
   border-radius: 0 0 6px 6px;
+  z-index: 99999999;
 }
 .navbar .navbar-brand {
   font-size: 1em;
+  font-weight: 600;
+}
+.navbar .navbar-brand .logo {
+  height: 20px;
+  margin-right: 5px;
 }
 .navbar .dropdown-toggle {
   position: relative;
+}
+.navbar #tabNav {
+  margin: 0 auto;
+  position: relative;
+  top: 10px;
 }
 .header {
   height: 30px;
@@ -26,7 +37,7 @@ body {
   right: 20px;
   top: 0;
   width: 80px;
-  height: 100%;
+  height: 45px;
   opacity: 0;
 }
 #export {
@@ -45,7 +56,7 @@ body {
   background: #272727;
   margin: 20px;
   padding: 10px;
-  border-radius: 10px;
+  border-radius: 6px;
   margin-bottom: 0;
 }
 #text #regionName {
@@ -67,7 +78,6 @@ body {
   transform-origin: left;
   margin: 0 auto;
   overflow: hidden;
-  margin-top: 50px;
   border-radius: 0 0 6px 6px;
   padding-bottom: -20px;
 }
@@ -91,9 +101,8 @@ body {
 }
 #main {
   margin-top: 0px;
-  margin-left: 20px;
+  margin-left: 10px;
   position: relative;
-  top: -20px;
   height: 400px;
 }
 #sarsChart {
@@ -127,16 +136,84 @@ body {
   transform: rotate(-45deg);
   display: none;
 }
-.secondContent {
+.card-body {
+  padding: 0.8rem !important;
+}
+.cardDiv {
   padding: 10px;
-}
-.secondContent #cardSubtitle {
+  padding-top: 0;
+  padding-bottom: 0;
   position: relative;
-  font-size: 10px;
-  line-height: 100%;
-  color: #808080;
+  top: -20px;
 }
-.secondContent #secondChart {
+.cardDiv #cardSubtitle {
+  position: relative;
+  font-size: 12px;
+  line-height: 100%;
+  color: #fff;
+  margin-top: 5px;
+}
+.cardDiv #secondChart {
   width: 100%;
   height: 800px;
+}
+.thirdContent {
+  padding-top: 0;
+}
+.thirdContent #mapContainer {
+  width: 100%;
+  height: 400px;
+  overflow: hidden;
+}
+.thirdContent #mapContainer #mapIFrame {
+  width: 120%;
+  height: 500px;
+  transform-origin: left top;
+  transform: scale(0.8333);
+}
+.myPage {
+  margin-top: 100px;
+  padding: 20px;
+  display: none;
+}
+.myPage .pagePlaceholder {
+  height: 400px;
+}
+#chartPage {
+  padding: 0;
+  display: block;
+}
+#newsPage .newsSummary {
+  height: 50px;
+  overflow: hidden;
+  text-overflow: clip;
+}
+#newsPage .list-group-item {
+  margin-bottom: 10px;
+}
+#loadingContainer {
+  width: 100%;
+  height: 100%;
+  position: fixed;
+  top: 0;
+  left: 0;
+  text-align: center;
+  background: rgba(0, 0, 0, 0.5);
+}
+#loadingContainer .spinner-border {
+  margin-top: 80%;
+}
+.footer {
+  font-size: 12px;
+  line-height: 24px;
+  text-align: center;
+  padding-bottom: 40px;
+  color: #fff;
+}
+.footer a {
+  color: #fff;
+  background: #007bff;
+  padding: 2px 4px;
+  border-radius: 2px;
+  margin-left: 8px;
 }

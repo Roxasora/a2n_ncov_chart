@@ -27,46 +27,96 @@ html
       ga('create', 'UA-78685792-2', 'auto');
       ga('send', 'pageview');
   body
+    nav.navbar.navbar-expand-lg.navbar-light.bg-light
+      .navbar-brand 
+        img.logo(src="images/a2nlogo.png", alt="") 
+        | 实时疫情·新闻·资讯
+      button.btn.btn-light.dropdown-toggle#regionBtn(type='button', data-toggle='collapse', data-target='#navbarSupportedContent', aria-controls='navbarSupportedContent', aria-expanded='false', aria-label='Toggle navigation') 全国
+
+      select#select(name='select')
+        option(value='china') 全国
+        option(value='wuhan') 武汉
+        option(value='sars') SARS
+
+      nav.d-flex.justify-content-center#tabNav(aria-label='Page navigation example')
+        ul.pagination
+          li.page-item.active#chartTabBtn
+            a.page-link(href='#') 实时疫情
+          li.page-item#newsTabBtn
+            a.page-link(href='#') 全国新闻
+          li.page-item#toolsTabBtn
+            a.page-link(href='#') 实用网站
     
     .header.hidden
-      
-      button#export 保存当前折线图
-    #all
-      .watermark
-      #text
-        div#regionName 全国
-        |       确诊&nbsp;&nbsp;
-        span#confirmed
-        |&nbsp;&nbsp;
-        span#confirmed_suffix 
-        |&nbsp;&nbsp;
-        span#suspecteda
-        br
-        | 死亡&nbsp;&nbsp;
-        span#dead
-        |&nbsp;&nbsp;治愈&nbsp;&nbsp;
-        span#cured
-        .clearFloat
-      #tip 点击折线图查看单日详细数据
-      #main
 
-    .secondContent
-      .card.text-white.bg-dark.mb-3
-        .card-header#secondContentCardHeader
-          .dropdown-toggle(data-toggle='collapse', href='#collapseExample', role='button', aria-expanded='false', aria-controls='collapseExample')
-            span#secondContentHeaderTitle|各省确诊人数 
-          #cardSubtitle 各省详情可在本页右上角切换地区
-          
-        .card-body#collapseExample.collapse.show
-          #secondChart
+    .myPage#chartPage
+      #all
+        .watermark
+        #text
+          div#regionName 全国
+          |       确诊&nbsp;&nbsp;
+          span#confirmed
+          |&nbsp;&nbsp;
+          span#confirmed_suffix 
+          |&nbsp;&nbsp;
+          span#suspected
+          br
+          | 死亡&nbsp;&nbsp;
+          span#dead
+          |&nbsp;&nbsp;治愈&nbsp;&nbsp;
+          span#cured
+          .clearFloat
+        #tip 点击折线图查看单日数据，拖动进度条查看早期数据
+        #main
+
+      .secondContent.cardDiv
+        .card.text-white.bg-dark.mb-3
+          .card-header#secondContentCardHeader(data-toggle='collapse', href='#collapseExample', role='button', aria-expanded='false', aria-controls='collapseExample')
+            .dropdown-toggle
+              span#secondContentHeaderTitle|各省确诊人数 
+            #cardSubtitle 各省详情可在本页右上角切换地区
+            
+          .card-body#collapseExample.collapse.show
+            #secondChart  
+      .thirdContent.cardDiv
+        .card.text-white.bg-secondary.mb-3
+          .card-header#thirdContentCardHeader(data-toggle='collapse', href='#thirdCollapseDiv', role='button', aria-expanded='false', aria-controls='thirdCollapseDiv')
+            .dropdown-toggle
+              span#secondContentHeaderTitle 全国疫情地图
+            
+          .card-body#thirdCollapseDiv.collapse.show
+            #mapContainer
+              iframe#mapIFrame(src='https://www.lovestu.com/api/project/cnmapyinqing/obj.php', height='500', frameborder='no', border='0', width='100%')  
+    .myPage#newsPage
+      .pagePlaceholder
+    .myPage#toolsPage
+      .alert.alert-primary(role='alert')
+        a.alert-link(href='https://news.qq.com/zt2020/page/feiyan.htm') 腾讯新闻实时疫情
+      .alert.alert-secondary(role='alert')
+        a.alert-link(href='https://m.yangshipin.cn/static/2020/c0126.html') 央视疫情24小时
+      .alert.alert-danger(role='alert')
+        a.alert-link(href='http://2019ncov.nosugartech.com/') 新型肺炎确诊患者相同行程查询工具
+      .alert.alert-success(role='alert')
+        a.alert-link(href='https://vp.fact.qq.com/home') 腾讯较真平台·新型冠状病毒肺炎实时辟谣
+      //- .alert.alert-warning(role='alert')
+      //-   a.alert-link(href='#') an example link
+      //- .alert.alert-info(role='alert')
+      //-   a.alert-link(href='#') an example link
+      //- .alert.alert-light(role='alert')
+      //-   a.alert-link(href='#') an example link
+      //- .alert.alert-dark(role='alert')
+      //-   a.alert-link(href='#') an example link
+    #loadingContainer
+      .spinner-border.text-primary(role='status')
+        span.sr-only Loading...
 
 
-    nav.navbar.navbar-expand-lg.navbar-light.bg-light
-      .navbar-brand A2N疫情趋势
-      button.btn.btn-light.dropdown-toggle#regionBtn(type='button', data-toggle='collapse', data-target='#navbarSupportedContent', aria-controls='navbarSupportedContent', aria-expanded='false', aria-label='Toggle navigation') 全国
-        
-      select#select(name='select')
-          option(value='china') 全国
-          option(value='wuhan') 武汉
-          option(value='sars') SARS
-      
+    .footer
+      | 本网页由 A2N 志愿者开发
+      br
+      | 页面数据来源于：
+      a(href="https://3g.dxy.cn/newh5/view/pneumonia") 丁香医生
+      a(href="https://news.qq.com/zt2020/page/feiyan.htm") 腾讯新闻
+      a(href="https://github.com/BlankerL/DXY-2019-nCoV-Crawler") BlankerL
+      .f2 仅用于抗击疫情 严禁用于商业用途
+      .f2 Copyright © A2N·青年李大猫

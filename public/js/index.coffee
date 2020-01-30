@@ -19,6 +19,8 @@ mainChinaData = []
 firstChart = null
 secondChart = null
 
+selectedPageIndex = -1
+
 isPhone = ()->
   userAgentInfo = navigator.userAgent;
   Agents = new Array("Android", "iPhone", "SymbianOS", "Windows Phone", "iPad", "iPod");  
@@ -107,8 +109,11 @@ reload = ()->
   # for item in nConData
 
   dataOffset = 0
-  if isMainChina
-    dataOffset = 7
+  if nConData.length > 17
+    dataOffset = nConData.length - 17 - 1
+  
+  # if isMainChina
+  #   dataOffset = 7
 
 
   for i in [0...nConData.length-dataOffset] by 1
@@ -116,10 +121,10 @@ reload = ()->
 
     date = new Date (item['date'])
 
-    if not isMainChina
-      xAxisData[i] = item.date
-    else
-      xAxisData[i] = "#{date.getMonth()+1}.#{date.getDate()}"
+    xAxisData[i] = item.date
+    # if not isMainChina
+    # else
+    #   xAxisData[i] = "#{date.getMonth()+1}.#{date.getDate()}"
     # confirmData[i] = []
     # seriousData[i] = []
     # curedData[i] = []
@@ -157,6 +162,9 @@ reload = ()->
             legend: {
                 data: legendData
                 top : 30
+                textStyle : {
+                  fontSize: 10
+                }
             },
             xAxis: [
               {
@@ -182,6 +190,28 @@ reload = ()->
                     }                    
                 },
             ],
+            # dataZoom: [{
+            #     type: 'inside',
+            #     startValue: xAxisData.length - 10,
+            #     endValue: xAxisData.length-1,
+            #     minSpan : 40,
+            #     zoomOnMouseWheel: no,
+            #     moveOnMouseMove: no,
+            #     moveOnMouseWheel: no,
+            #     reventDefaultMouseMove : no
+            #   },
+            #   {
+            #       handleIcon: 'M10.7,11.9v-1.3H9.3v1.3c-4.9,0.3-8.8,4.4-8.8,9.4c0,5,3.9,9.1,8.8,9.4v1.3h1.3v-1.3c4.9-0.3,8.8-4.4,8.8-9.4C19.5,16.3,15.6,12.2,10.7,11.9z M13.3,24.4H6.7V23h6.6V24.4z M13.3,19.6H6.7v-1.4h6.6V19.6z',
+            #       handleSize: '80%',
+            #       handleStyle: {
+            #           color: '#fff',
+            #           shadowBlur: 3,
+            #           shadowColor: 'rgba(0, 0, 0, 0.6)',
+            #           shadowOffsetX: 2,
+            #           shadowOffsetY: 2
+            #       }
+            #   }
+            # ]
             series: [
               {
                   name: '确诊',
@@ -238,11 +268,11 @@ reload = ()->
         }
 
   if isMainChina
-    last = nConData[nConData.length-1]
-    jQuery("#confirmed").html "#{parseInt(last.confirmed)}"
-    jQuery("#suspected").html "#{parseInt(last.suspected)}"
-    jQuery("#cured").html "#{parseInt(last.curedCase)}"
-    jQuery("#dead").html "#{parseInt(last.dead)}"
+    mainChinaItem = allRegionCurrentAreaTreeData.chinaTotal
+    jQuery("#confirmed").html mainChinaItem.confirm
+    jQuery("#suspected").html mainChinaItem.suspect
+    jQuery("#cured").html mainChinaItem.heal
+    jQuery("#dead").html mainChinaItem.dead
   else
     for provinceItem in allRegionCurrentAreaTreeData.areaTree[0].children
       if provinceItem.name == selectedRegion
@@ -358,7 +388,10 @@ requestMainChinaData = ->
         return parseFloat(a.date) - parseFloat(b.date)
 
       requestAllRegionCurrentAreaTreeData ()->
-        requestallRegionTrendData()
+        requestallRegionTrendData ()->
+          reloadSelect()
+          reload()
+          stopLoading()
       
   }
 
@@ -369,6 +402,8 @@ requestallRegionTrendData = (callback)->
     success : (result)->
       convertedJson = csvJSON result
       # console.log convertedJson
+
+      allRegionTrendData = {}
 
       for item in convertedJson
         allKeys = Object.keys item
@@ -385,10 +420,12 @@ requestallRegionTrendData = (callback)->
               date : time
               confirmed : number
             }
+      if callback
+        callback()
+      
 
       # console.log allRegionTrendData
-      reloadSelect()
-      reload()
+      
   }
 
 requestAllRegionCurrentAreaTreeData = (callback)->
@@ -405,13 +442,15 @@ requestAllRegionCurrentAreaTreeData = (callback)->
       mainChinaData[mainChinaData.length - 1].suspected = chinaTotal.suspect
       mainChinaData[mainChinaData.length - 1].dead = chinaTotal.dead
 
-      jQuery("#tip").html "最后更新：#{allRegionCurrentAreaTreeData.lastUpdateTime} <br> 点击折线图查看单日详细数据"
+      jQuery("#tip").html "最后更新：#{allRegionCurrentAreaTreeData.lastUpdateTime} <br> 点击折线图查看单日详细数据，拖动进度条查看早期数据"
       
       console.log allRegionCurrentAreaTreeData
       if callback
         callback()
-      
   }
+
+reloadTabData = ()->
+  jQuery("#")
 
 reloadSelect = ->
   optionsHtml = ""
@@ -423,6 +462,95 @@ reloadSelect = ->
 
   jQuery("#select").html optionsHtml
   jQuery("#select").val selectedRegion
+
+
+timeStrWithUnix = (timeStamp) ->
+  nowDate = new Date()
+  originalDate = new Date(timeStamp)
+
+  year = originalDate.getFullYear()
+  month = originalDate.getMonth() + 1
+  day = originalDate.getDate()
+  nowYear = nowDate.getFullYear()
+
+  timeDif = (nowDate.getTime() - timeStamp) / 1000
+
+  if timeDif <= 60 * 60
+    timeDifToMin = parseInt timeDif / 60
+    if timeDifToMin == 0
+      return "刚刚"
+    else
+      return "#{timeDifToMin}分前"
+  else if timeDif <= 60 * 60 * 24
+    timeDifToHour = parseInt timeDif/60/60
+    return "#{timeDifToHour}小时前"
+  else
+    monthStr = originalDate.toString().substr(4,3)
+    if nowYear == year
+      return "#{day} #{monthStr}"
+    else
+      return "#{day} #{monthStr},#{year}"
+
+requestNewsData = ()->
+  startLoading()
+  url = ""
+  if selectedRegion == '全国'
+    url = "https://lab.isaaclin.cn/nCoV/api/news?num=20"
+  else if selectedRegion == '北京'
+    url = "https://lab.isaaclin.cn/nCoV/api/news?province=#{encodeURIComponent(selectedRegion+'市')}"
+  else
+    url = "https://lab.isaaclin.cn/nCoV/api/news?province=#{encodeURIComponent(selectedRegion+'省')}"
+  
+  jQuery.ajax
+    url : url
+    headers : {
+      "Access-Control-Allow-Origin" : "#{window.location.replace("/#","")}"
+    }
+    success : (result)->
+      htmlStr = ""
+      for item in result.results
+        htmlStr += "<div class='list-group'>
+                      <a href='#{item.sourceUrl}' class='list-group-item list-group-item-action'>
+                        <div class='d-flex w-100 justify-content-between'>
+                          <h5 class='mb-1'>#{item.title}</h5>
+                        </div>
+                        <p class='mb-1 newsSummary'>#{item.summary}</p>
+                        <small>#{item.infoSource} · #{timeStrWithUnix(item.pubDate)}</small>
+                      </a>
+                    </div>"
+
+      jQuery("#newsPage").html htmlStr
+      stopLoading()
+    
+
+
+jumpToPage = (index)->
+  if selectedPageIndex == index
+    return
+
+  jQuery(".page-item").removeClass "active"
+  jQuery(".page-item").eq(index).addClass "active"
+  
+  pageArray = [jQuery("#chartPage"), jQuery("#newsPage"), jQuery("#toolsPage")]
+  currentPage = pageArray[selectedPageIndex]
+  nextPage = pageArray[index]
+
+  if currentPage
+    currentPage.fadeOut()
+  nextPage.fadeIn()
+
+  selectedPageIndex = index
+
+  if selectedPageIndex == 0
+    requestMainChinaData()
+  if selectedPageIndex == 1
+    requestNewsData()
+  
+startLoading = () ->
+  jQuery("#loadingContainer").fadeIn()
+
+stopLoading = () ->
+  jQuery("#loadingContainer").fadeOut()
 
 getURLParamWithKey = (key) ->
   # This function is anonymous, is executed immediately and 
@@ -452,14 +580,17 @@ getURLParamWithKey = (key) ->
 safeRegion = ['全国','湖北','北京','广东','山东','上海','广西','黑龙江','江苏','河北','天津','江西','四川','湖南','云南','浙江','台湾','河南','重庆','贵州','香港','安徽','海南','澳门','辽宁','福建','山西','宁夏','吉林','内蒙古','陕西','新疆','甘肃','青海','西藏']
 
 jQuery(document).ready ->
+  
 
   cookieRegion = Cookies.get "selectedRegion"
   if safeRegion.indexOf(cookieRegion) != -1
     selectedRegion = cookieRegion
   else
     selectedRegion = "全国"
-
+    
+  jQuery("#newsTabBtn a").html "#{selectedRegion}新闻"
   jQuery("#regionBtn").html selectedRegion
+  jQuery(document).attr "title", "#{selectedRegion}疫情实时趋势&新闻"
 
   firstChart = echarts.init document.getElementById("main"), 'dark'
   secondChart = echarts.init document.getElementById("secondChart"), 'dark'
@@ -476,8 +607,15 @@ jQuery(document).ready ->
     selectedRegion = jQuery(this).val()
     Cookies.set "selectedRegion", selectedRegion
     jQuery("#regionBtn").html selectedRegion
+    jQuery("#newsTabBtn a").html "#{selectedRegion}新闻"
     jQuery("#regionBtn").removeAttr "active"
-    reload()
+    jQuery(document).attr "title", "#{selectedRegion}疫情实时趋势&新闻"
+
+    if selectedPageIndex == 0
+      reload()
+    else if selectedPageIndex == 1
+      requestNewsData()
+
   jQuery("#export").click ->
     html2canvas(document.querySelector("#all")).then (canvas) ->
       # base64Image = canvas.toDataURL('image/png').substring(22)
@@ -499,11 +637,22 @@ jQuery(document).ready ->
       a.click();
 
 
-  # jQuery("#collapseExample").collapse()
+  jQuery("#collapseExample").collapse()
   jQuery("#collapseExample").on "shown.bs.collapse", ->
     jQuery("#secondContentCardHeader").addClass "dropup"
   jQuery("#collapseExample").on "hidden.bs.collapse", ->
     jQuery("#secondContentCardHeader").removeClass "dropup"
+
+  jQuery(".page-item").click ->
+    index = jQuery(this).index()
+    if selectedPageIndex != index
+      jumpToPage index
+
   # requestallRegionTrendData()
-  requestMainChinaData()
+  urlPage = getURLParamWithKey "p"
+  if urlPage and parseInt(urlPage) <= 2 and parseInt(urlPage) >= 0
+    jumpToPage parseInt urlPage
+    window.history.pushState(null,null,'?p=1')
+  else
+    jumpToPage 0
 
