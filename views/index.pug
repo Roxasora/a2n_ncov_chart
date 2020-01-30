@@ -14,6 +14,9 @@ html
     script(type='text/javascript', src='js/nConData.js?21312')
     script(type='text/javascript', src='js/sars_china.js?21312')
     script(type='text/javascript', src='js/html2canvas.min.js?')
+
+    script(src='https://cdn.jsdelivr.net/npm/js-cookie@beta/dist/js.cookie.min.js')
+
     script(type='text/javascript', src='js/index.js?21312')
     link(rel='stylesheet', type='text/css', href='css/index.css')
     script.
@@ -24,53 +27,46 @@ html
       ga('create', 'UA-78685792-2', 'auto');
       ga('send', 'pageview');
   body
-    nav.navbar.navbar-expand-lg.navbar-light.bg-light
-      a.navbar-brand(href='#') Navbar
-      button.navbar-toggler(type='button', data-toggle='collapse', data-target='#navbarSupportedContent', aria-controls='navbarSupportedContent', aria-expanded='false', aria-label='Toggle navigation')
-        span.navbar-toggler-icon
-      #navbarSupportedContent.collapse.navbar-collapse
-        ul.navbar-nav.mr-auto
-          li.nav-item.active
-            a.nav-link(href='#')
-              | Home 
-              span.sr-only (current)
-          li.nav-item
-            a.nav-link(href='#') Link
-          li.nav-item.dropdown
-            a#navbarDropdown.nav-link.dropdown-toggle(href='#', role='button', data-toggle='dropdown', aria-haspopup='true', aria-expanded='false')
-              | Dropdown
-            .dropdown-menu(aria-labelledby='navbarDropdown')
-              a.dropdown-item(href='#') Action
-              a.dropdown-item(href='#') Another action
-              .dropdown-divider
-              a.dropdown-item(href='#') Something else here
-          li.nav-item
-            a.nav-link.disabled(href='#', tabindex='-1', aria-disabled='true') Disabled
-        form.form-inline.my-2.my-lg-0
-          input.form-control.mr-sm-2(type='search', placeholder='Search', aria-label='Search')
-          button.btn.btn-outline-success.my-2.my-sm-0(type='submit') Search
-
-    //- .header
-    //-   select#select(name='select')
-    //-     option(value='china') 全国
-    //-     option(value='wuhan') 武汉
-    //-     option(value='sars') SARS
-    //-   button#export 保存当前折线图
-    //-   .clearFloat
+    
+    .header.hidden
+      
+      button#export 保存当前折线图
     #all
-      #title 新型冠状病毒相关各类人数折线图
-      //- #desc
       .watermark
-      #main
       #text
-        span#region 全国
-        |       确诊
+        div#regionName 全国
+        |       确诊&nbsp;&nbsp;
         span#confirmed
-        span#confirmed_suffix 例 疑似
+        |&nbsp;&nbsp;
+        span#confirmed_suffix 
+        |&nbsp;&nbsp;
+        span#suspecteda
         br
-        span#suspected
-        |       例 死亡
+        | 死亡&nbsp;&nbsp;
         span#dead
-        |       例 治愈
+        |&nbsp;&nbsp;治愈&nbsp;&nbsp;
         span#cured
-        |       例
+        .clearFloat
+      #tip 点击折线图查看单日详细数据
+      #main
+
+    .secondContent
+      .card.text-white.bg-dark.mb-3
+        .card-header#secondContentCardHeader
+          .dropdown-toggle(data-toggle='collapse', href='#collapseExample', role='button', aria-expanded='false', aria-controls='collapseExample')
+            span#secondContentHeaderTitle|各省确诊人数 
+          #cardSubtitle 各省详情可在本页右上角切换地区
+          
+        .card-body#collapseExample.collapse.show
+          #secondChart
+
+
+    nav.navbar.navbar-expand-lg.navbar-light.bg-light
+      .navbar-brand A2N疫情趋势
+      button.btn.btn-light.dropdown-toggle#regionBtn(type='button', data-toggle='collapse', data-target='#navbarSupportedContent', aria-controls='navbarSupportedContent', aria-expanded='false', aria-label='Toggle navigation') 全国
+        
+      select#select(name='select')
+          option(value='china') 全国
+          option(value='wuhan') 武汉
+          option(value='sars') SARS
+      

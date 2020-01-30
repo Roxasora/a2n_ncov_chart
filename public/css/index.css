@@ -1,14 +1,30 @@
 body {
   padding: 0;
   margin: 0;
-  background-color: #101010;
+  background-color: #000;
+}
+.navbar {
+  position: fixed;
+  top: 0;
+  width: 100%;
+  border-radius: 0 0 6px 6px;
+}
+.navbar .navbar-brand {
+  font-size: 1em;
+}
+.navbar .dropdown-toggle {
+  position: relative;
 }
 .header {
   height: 30px;
 }
 #select {
+  position: absolute;
+  right: 20px;
+  top: 0;
+  width: 80px;
   height: 100%;
-  float: left;
+  opacity: 0;
 }
 #export {
   height: 100%;
@@ -18,12 +34,39 @@ body {
 .clearFloat {
   clear: both;
 }
+#text {
+  text-align: center;
+  position: relative;
+  font-size: 16px;
+  color: #fff;
+  background: #272727;
+  margin: 20px;
+  padding: 10px;
+  border-radius: 10px;
+  margin-bottom: 0;
+}
+#text #regionName {
+  float: left;
+  height: 48px;
+  width: 60px;
+  line-height: 48px;
+  border-right: 1px solid #383838;
+}
+#tip {
+  margin-top: 15px;
+  font-size: 10px;
+  color: #808080;
+  text-align: center;
+}
 #all {
   background-color: #101010;
   max-width: 780px;
   transform-origin: left;
   margin: 0 auto;
   overflow: hidden;
+  margin-top: 50px;
+  border-radius: 0 0 6px 6px;
+  padding-bottom: -20px;
 }
 #all.phone {
   width: 100%;
@@ -46,22 +89,13 @@ body {
 #main {
   margin-top: 0px;
   margin-left: 20px;
+  position: relative;
+  top: -20px;
   height: 400px;
 }
 #sarsChart {
   width: 100%;
   height: 50%;
-}
-#text {
-  text-align: center;
-  position: relative;
-  top: -35px;
-  font-size: 16px;
-  color: #fff;
-  background: #272727;
-  margin: 20px;
-  padding: 10px;
-  border-radius: 10px;
 }
 #confirmed {
   color: #CDAF43;
@@ -90,8 +124,16 @@ body {
   transform: rotate(-45deg);
   display: none;
 }
-.navbar {
-  position: fixed;
-  bottom: 0;
+.secondContent {
+  padding: 10px;
+}
+.secondContent #cardSubtitle {
+  position: relative;
+  font-size: 10px;
+  line-height: 100%;
+  color: #808080;
+}
+.secondContent #secondChart {
   width: 100%;
+  height: 800px;
 }
