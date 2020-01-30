@@ -9,6 +9,7 @@ var cookieParser = require('cookie-parser');
 var bodyParser = require('body-parser');
 
 var index = require('./routes/indexRouter');
+var oldChart = require('./routes/oldChartRouter');
 
 var app = express();
 app.use(compression());
@@ -51,6 +52,8 @@ app.get('/api_proxy/get', function (req, res) {
   })
 })
 
+
+app.use('/oldchart', oldChart);
 app.use('/', index);
 
 // app.use('/', function(req, res, next){

@@ -183,9 +183,9 @@ window.nCon_data = [
     },
     {
         "date": "2020-01-28T16:00:00.000Z",
-        "confirmed": 6015,
-        "curedCase": 110,
-        "dead": 132,
-        "suspected": 9239
+        "confirmed": 7711,
+        "curedCase": 124,
+        "dead": 170,
+        "suspected": 12167
     }
 ]

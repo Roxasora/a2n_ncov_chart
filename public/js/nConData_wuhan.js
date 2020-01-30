@@ -144,5 +144,11 @@ window.nCon_data_wuhan = [
         "curedCase": 47,
         "dead": 104,
         "undefined": "https://www.fx168.com/fx168_t/2001/3585030.shtml"
+    },
+    {
+        "date": "2020-01-28T16:00:00.000Z",
+        "confirmed": 2261,
+        "curedCase": 51,
+        "dead": 129
     }
 ]

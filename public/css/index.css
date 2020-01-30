@@ -20,15 +20,19 @@ body {
 }
 #all {
   background-color: #101010;
-  min-width: 780px;
+  max-width: 780px;
   transform-origin: left;
   margin: 0 auto;
   overflow: hidden;
 }
+#all.phone {
+  width: 100%;
+  min-width: 100%;
+}
 #title {
   padding-top: 20px;
   text-align: center;
-  font-size: 28px;
+  font-size: 20px;
   color: #fff;
 }
 .hidden {
@@ -41,8 +45,8 @@ body {
 }
 #main {
   margin-top: 0px;
-  width: 100%;
-  height: 540px;
+  margin-left: 20px;
+  height: 400px;
 }
 #sarsChart {
   width: 100%;
@@ -51,9 +55,13 @@ body {
 #text {
   text-align: center;
   position: relative;
-  top: -20px;
-  font-size: 20px;
+  top: -35px;
+  font-size: 16px;
   color: #fff;
+  background: #272727;
+  margin: 20px;
+  padding: 10px;
+  border-radius: 10px;
 }
 #confirmed {
   color: #CDAF43;
@@ -80,4 +88,10 @@ body {
   background: url(../images/watermark.png);
   background-size: 30%;
   transform: rotate(-45deg);
+  display: none;
+}
+.navbar {
+  position: fixed;
+  bottom: 0;
+  width: 100%;
 }
