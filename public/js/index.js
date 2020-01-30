@@ -75,12 +75,13 @@
     }
     return {
       normal: {
-        show: false,
+        show: true,
         position: position,
-        fontSize: 12,
+        fontSize: 8,
         fontWeight: "bolder",
         backgroundColor: bgColor,
-        padding: 3
+        padding: 3,
+        borderRadius: 4
       }
     };
   };
