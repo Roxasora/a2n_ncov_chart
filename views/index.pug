@@ -9,8 +9,16 @@ html
     link(rel='stylesheet', href='https://cdn.jsdelivr.net/npm/bootstrap@4.4.1/dist/css/bootstrap.min.css', integrity='sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh', crossorigin='anonymous')
     link(rel="stylesheet", href="https:////at.alicdn.com/t/font_1623822_6prssvkqytt.css")
     script(src='https://cdn.jsdelivr.net/npm/jquery@3.2.1/dist/jquery.min.js')
+
+    //百度地图 sdk
+    script(type='text/javascript', src='http://api.map.baidu.com/api?v=2.0&ak=GIYd9jaUlH7Mrda5HnIdeH65dBajyuVd')
+
     script(src='https://cdn.jsdelivr.net/npm/bootstrap@4.4.1/dist/js/bootstrap.min.js', integrity='sha384-wfSDF2E50Y2D1uUdj0O3uMBJnjuUD4Ih7YwaYd1iqfktj0Uod8GCExl3Og8ifwB6', crossorigin='anonymous')
+    script(type='text/javascript', src='js/testMap.js?21312')
+    script(type='text/javascript', src='js/cityGeo.js?21312')
     script(type='text/javascript', src='js/echarts.min.js?')
+    script(type='text/javascript', src='js/bmap.js?21312')
+      
     script(type='text/javascript', src='js/nConData_wuhan.js?21312')
     script(type='text/javascript', src='js/nConData.js?21312')
     script(type='text/javascript', src='js/sars_china.js?21312')
@@ -43,11 +51,11 @@ html
       nav.d-flex.justify-content-center#tabNav(aria-label='Page navigation example')
         ul.pagination
           li.page-item.active#chartTabBtn
-            a.page-link(href='#') 实时疫情
+            a.page-link 实时疫情
           li.page-item#newsTabBtn
-            a.page-link(href='#') 全国新闻
+            a.page-link 全国新闻
           li.page-item#toolsTabBtn
-            a.page-link(href='#') 实用网站大全
+            a.page-link 实用网站大全
     
     .header.hidden
 
@@ -55,44 +63,45 @@ html
       #all
         .watermark
         #text
-          div#regionName  
-            span 全国
-            i.iconfont.icon-new-releases.text-warning
-          |       确诊&nbsp;&nbsp;
-          span#confirmed
-          |&nbsp;&nbsp;
-          span#confirmed_suffix 
-          |&nbsp;&nbsp;
-          span#suspected
-          br
-          | 死亡&nbsp;&nbsp;
-          span#dead
-          |&nbsp;&nbsp;治愈&nbsp;&nbsp;
-          span#cured
+          .textItem
+            span.number#confirmed -
+            span.name 确诊
+          .textItem
+            span.number#suspected -
+            span.name 疑似
+          .textItem
+            span.number#dead -
+            span.name 死亡
+          .textItem
+            span.number#cured -
+            span.name 治愈
           .clearFloat
         #tip 点击折线图查看单日数据，拖动进度条查看早期数据
         #main
+
+      .thirdContent.cardDiv
+        .card.text-white.bg-secondary.mb-3
+          .card-header#thirdContentCardHeader(data-toggle='collapse', href='#thirdCollapseDiv', role='button', aria-expanded='false', aria-controls='thirdCollapseDiv')
+            .dropdown-toggle
+              i.iconfont.icon-ditu.text-warning
+              span#thirdContentHeaderTitle 全国疫情地图
+            
+          .card-body#thirdCollapseDiv.collapse.show
+            #mapChart
+              //- iframe#mapIFrame(src='https://www.lovestu.com/api/project/cnmapyinqing/obj.php', height='500', frameborder='no', border='0', width='100%')  
 
       .secondContent.cardDiv
         .card.text-white.bg-dark.mb-3
           .card-header#secondContentCardHeader(data-toggle='collapse', href='#collapseExample', role='button', aria-expanded='false', aria-controls='collapseExample')
             .dropdown-toggle
-              i.iconfont.icon-caidan
+              i.iconfont.icon-caidan.text-warning
               span#secondContentHeaderTitle|各省确诊人数 
             #cardSubtitle 各省详情可在本页右上角切换地区
             
           .card-body#collapseExample.collapse.show
             #secondChart  
-      .thirdContent.cardDiv
-        .card.text-white.bg-secondary.mb-3
-          .card-header#thirdContentCardHeader(data-toggle='collapse', href='#thirdCollapseDiv', role='button', aria-expanded='false', aria-controls='thirdCollapseDiv')
-            .dropdown-toggle
-              i.iconfont.icon-ditu
-              span#secondContentHeaderTitle 全国疫情地图
-            
-          .card-body#thirdCollapseDiv.collapse.show
-            #mapContainer
-              iframe#mapIFrame(src='https://www.lovestu.com/api/project/cnmapyinqing/obj.php', height='500', frameborder='no', border='0', width='100%')  
+            .watermark
+
     .myPage#newsPage
       .pagePlaceholder
     .myPage#toolsPage
@@ -103,7 +112,9 @@ html
       .alert.alert-danger(role='alert')
         a.alert-link(href='http://2019ncov.nosugartech.com/') 新型肺炎确诊患者相同行程查询工具
       .alert.alert-success(role='alert')
-        a.alert-link(href='https://vp.fact.qq.com/home') 腾讯较真平台·新型冠状病毒肺炎实时辟谣
+        a.alert-link(href='https://vp.fact.qq.com/home') 实时辟谣·新型冠状病毒肺炎
+      .alert.alert-success(role='alert')
+        a.alert-link(href='https://promo.guahao.com/topic/pneumonia') ！微医在线问诊 ！
       //- .alert.alert-warning(role='alert')
       //-   a.alert-link(href='#') an example link
       //- .alert.alert-info(role='alert')
@@ -129,3 +140,4 @@ html
       a(href="https://github.com/BlankerL/DXY-2019-nCoV-Crawler") BlankerL
       .f2 仅用于抗击疫情 严禁用于商业用途
       .f2 Copyright © A2N·青年李大猫
+      a(href="https://github.com/Roxasora/a2n_ncov_chart") Github 项目地址

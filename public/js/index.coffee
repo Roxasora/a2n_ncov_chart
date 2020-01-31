@@ -18,8 +18,11 @@ mainChinaData = []
 
 firstChart = null
 secondChart = null
+mapChart = null
 
 selectedPageIndex = -1
+
+safeRegion = ['全国','湖北','北京','广东','山东','上海','广西','黑龙江','江苏','河北','天津','江西','四川','湖南','云南','浙江','台湾','河南','重庆','贵州','香港','安徽','海南','澳门','辽宁','福建','山西','宁夏','吉林','内蒙古','陕西','新疆','甘肃','青海','西藏']
 
 isPhone = ()->
   userAgentInfo = navigator.userAgent;
@@ -109,8 +112,8 @@ reload = ()->
   # for item in nConData
 
   dataOffset = 0
-  if nConData.length > 17
-    dataOffset = nConData.length - 17 - 1
+  if nConData.length > 14
+    dataOffset = nConData.length - 14 - 1
   
   # if isMainChina
   #   dataOffset = 7
@@ -159,9 +162,15 @@ reload = ()->
                   }
               }
             },
+            grid: {
+                x: 30, 
+                y: 30, 
+                x2: 30, 
+                y2: 30 
+            }
             legend: {
                 data: legendData
-                top : 30
+                top : 10
                 textStyle : {
                   fontSize: 10
                 }
@@ -181,7 +190,7 @@ reload = ()->
               ],
             yAxis: [
                 {
-                    name: '人数',
+                    name: '',
                     type: 'value',
                     axisLabel: {
                       textStyle : {
@@ -297,6 +306,8 @@ reloadSecondChart = ()->
   xAxisAllDataArray = []
   xAxisTodayDataArray = []
 
+  option = {}
+
   if isMainChina
     jQuery("#secondContentHeaderTitle").html "全国 各省累计确诊人数"
     jQuery("#cardSubtitle").removeClass "hidden"
@@ -304,75 +315,121 @@ reloadSecondChart = ()->
       yAxisDataArray.push item.name
       xAxisAllDataArray.push item.total.confirm
       xAxisTodayDataArray.push item.today.confirm
+
+    option = {
+      backgroundColor : "#343a40"
+      tooltip: {
+          trigger: 'axis',
+          axisPointer: {
+              type: 'shadow'
+          }
+      },
+      legend: {
+          data: legendData
+      },
+      xAxis: {
+          type: 'value',
+          boundaryGap: [0, 0.01]
+      },
+      yAxis: {
+          type: 'category',
+          data: yAxisDataArray,
+          inverse: yes
+      },
+      series: [
+          {
+              name: '累计确诊',
+              type: 'bar',
+              itemStyle: {
+                      normal: {
+                          color: confirmedLineColor
+                      },
+                    }
+              label: {
+                  show: true,
+                  position: ['110%', '20%']
+                  fontSize: 10
+                  fontWeight : 600
+              },
+              data: xAxisAllDataArray
+          },
+          # {
+          #     name: '今日确诊',
+          #     type: 'bar',
+          #     itemStyle: {
+          #             normal: {
+          #                 color: "#51D3EF"
+          #             },
+          #           }
+          #     label: {
+          #         show: true,
+          #         position: ['100%', '50%']
+          #     },
+          #     data: xAxisTodayDataArray
+          # }
+      ]
+    };
   else
-    jQuery("#secondContentHeaderTitle").html "#{selectedRegion} 各市累计确诊人数"
+    jQuery("#secondContentHeaderTitle").html "#{selectedRegion} · 各地累计确诊人数"
     jQuery("#cardSubtitle").addClass "hidden"
+    pieDataArray = []
     for provinceItem in allRegionCurrentAreaTreeData.areaTree[0].children
       if provinceItem.name == selectedRegion
         for cityItem in provinceItem.children
-          yAxisDataArray.push cityItem.name
-          xAxisAllDataArray.push cityItem.total.confirm
-          xAxisTodayDataArray.push cityItem.today.confirm
+          # yAxisDataArray.push cityItem.name
+          # xAxisAllDataArray.push cityItem.total.confirm
+          # xAxisTodayDataArray.push cityItem.today.confirm
+          if cityItem.name == "地区待确认"
+            continue
+          
+          pieDataArray.push {value:cityItem.total.confirm, name:"#{cityItem.name}:#{cityItem.total.confirm}"}
         break
 
-  option = {
-    backgroundColor : "#343a40"
-    tooltip: {
-        trigger: 'axis',
-        axisPointer: {
-            type: 'shadow'
-        }
-    },
-    legend: {
-        data: legendData
-    },
-    xAxis: {
-        type: 'value',
-        boundaryGap: [0, 0.01]
-    },
-    yAxis: {
-        type: 'category',
-        data: yAxisDataArray,
-        inverse: yes
-    },
-    series: [
-        {
-            name: '累计确诊',
-            type: 'bar',
-            itemStyle: {
-                    normal: {
-                        color: confirmedLineColor
-                    },
+    option = {
+      backgroundColor : "#343a40"
+      grid: {
+           x: 0, 
+           y: 0, 
+           x2: 0, 
+           y2: 0 
+      }
+      tooltip: {
+          trigger: 'item',
+          formatter: '{a} <br/>{b} : {c} ({d}%)'
+      },
+      legend: {
+          orient: 'vertical',
+          left: 'left',
+          data: ['直接访问:322', '邮件营销', '联盟广告', '视频广告', '搜索引擎']
+      },
+      series: [
+          {
+              name: '确诊人数',
+              type: 'pie',
+              radius: '55%',
+              center: ['50%', '50%'],
+              data: pieDataArray,
+              emphasis: {
+                  itemStyle: {
+                      shadowBlur: 10,
+                      shadowOffsetX: 0,
+                      shadowColor: 'rgba(0, 0, 0, 0.5)'
                   }
-            label: {
-                show: true,
-                position: ['110%', '20%']
-                fontSize: 10
-                fontWeight : 600
-            },
-            data: xAxisAllDataArray
-        },
-        # {
-        #     name: '今日确诊',
-        #     type: 'bar',
-        #     itemStyle: {
-        #             normal: {
-        #                 color: "#51D3EF"
-        #             },
-        #           }
-        #     label: {
-        #         show: true,
-        #         position: ['100%', '50%']
-        #     },
-        #     data: xAxisTodayDataArray
-        # }
-    ]
-  };
+              }
+              label: {
+                  show: true,
+                  fontSize: 10
+              },
+          }
+      ]
+    }
+
 
   myChart.clear()
   myChart.setOption option
 
 requestMainChinaData = ->
+  startLoading()
   apiUrl = "http://view.inews.qq.com/g2/getOnsInfo?name=wuwei_ww_cn_day_counts"
   jQuery.ajax {
     url: '/api_proxy/get?url=' + encodeURIComponent apiUrl
@@ -389,7 +446,7 @@ requestMainChinaData = ->
 
       requestAllRegionCurrentAreaTreeData ()->
         requestallRegionTrendData ()->
-          reloadSelect()
+          # reloadSelect()
           reload()
           stopLoading()
       
@@ -445,20 +502,63 @@ requestAllRegionCurrentAreaTreeData = (callback)->
       jQuery("#tip").html "最后更新：#{allRegionCurrentAreaTreeData.lastUpdateTime} <br> 点击折线图查看单日详细数据，拖动进度条查看早期数据"
       
       console.log allRegionCurrentAreaTreeData
+
+      reloadMapChart()
+
       if callback
         callback()
   }
 
+mapHasUpdated = no
+
+
+getProvinceGeoArray = (province)->
+  for item in window.cityGeoData
+    if item.name.indexOf(province) != -1
+      return item.children
+
+getCityGeoArray = (provinceGeoArray, cityName)->
+  for item in provinceGeoArray
+    if item.name.indexOf(cityName) != -1
+      return [parseFloat(item.log), parseFloat(item.lat)]
+
+  return []
+    
+
+reloadMapChart = ()->
+  if mapHasUpdated
+    return
+
+  mapHasUpdated = yes
+
+  confirmedDataArray = []
+  for provinceItem in allRegionCurrentAreaTreeData.areaTree[0].children
+    provinceGeoArray = getProvinceGeoArray provinceItem.name
+    for cityItem in provinceItem.children
+      cityGeoArray = getCityGeoArray provinceGeoArray, cityItem.name
+      if cityGeoArray.length == 0
+        continue
+      item = {
+        name : cityItem.name
+        value : [cityGeoArray[0], cityGeoArray[1], 1.5 * Math.log2(cityItem.total.confirm)]
+      }
+      confirmedDataArray.push item
+    
+  option = window.drawMapOption(confirmedDataArray)
+  mapChart.clear()
+  mapChart.setOption option
+
+
 reloadTabData = ()->
-  jQuery("#")
 
 reloadSelect = ->
   optionsHtml = ""
-  arrayStr = ""
-  for key in Object.keys(allRegionTrendData)
-    item = allRegionTrendData[key]
-    optionsHtml += "<option value ='#{key}'>#{key}</option>"
-    arrayStr += "'#{key}',"
+  # arrayStr = ""
+  # for key in Object.keys(allRegionTrendData)
+  for item in safeRegion
+    # item = allRegionTrendData[key]
+    optionsHtml += "<option value ='#{item}'>#{item}</option>"
+    # arrayStr += "'#{key}',"
 
   jQuery("#select").html optionsHtml
   jQuery("#select").val selectedRegion
@@ -495,16 +595,16 @@ requestNewsData = ()->
   startLoading()
   url = ""
   if selectedRegion == '全国'
-    url = "https://lab.isaaclin.cn/nCoV/api/news?num=20"
+    url = "https://lab.isaaclin.cn/nCoV/api/news?num=40"
   else if selectedRegion == '北京'
-    url = "https://lab.isaaclin.cn/nCoV/api/news?province=#{encodeURIComponent(selectedRegion+'市')}"
+    url = "https://lab.isaaclin.cn/nCoV/api/news?province=#{encodeURIComponent(selectedRegion+'市')}&num=40"
   else
-    url = "https://lab.isaaclin.cn/nCoV/api/news?province=#{encodeURIComponent(selectedRegion+'省')}"
+    url = "https://lab.isaaclin.cn/nCoV/api/news?province=#{encodeURIComponent(selectedRegion+'省')}&num=40"
   
   jQuery.ajax
     url : url
     headers : {
-      "Access-Control-Allow-Origin" : "#{window.location.replace("/#","")}"
+      "Access-Control-Allow-Origin" : "http://#{window.location.host}"
     }
     success : (result)->
       htmlStr = ""
@@ -533,6 +633,9 @@ jumpToPage = (index)->
   
   pageArray = [jQuery("#chartPage"), jQuery("#newsPage"), jQuery("#toolsPage")]
   currentPage = pageArray[selectedPageIndex]
+  if selectedPageIndex == -1
+    currentPage = pageArray[0]
+  
   nextPage = pageArray[index]
 
   if currentPage
@@ -545,6 +648,12 @@ jumpToPage = (index)->
     requestMainChinaData()
   if selectedPageIndex == 1
     requestNewsData()
+  else
+    stopLoading()
+
+  history.replaceState(null,null,"?p=#{selectedPageIndex}")
+
+
   
 startLoading = () ->
   jQuery("#loadingContainer").fadeIn()
@@ -577,23 +686,45 @@ getURLParamWithKey = (key) ->
     i++
   return query_string[key]
 
-safeRegion = ['全国','湖北','北京','广东','山东','上海','广西','黑龙江','江苏','河北','天津','江西','四川','湖南','云南','浙江','台湾','河南','重庆','贵州','香港','安徽','海南','澳门','辽宁','福建','山西','宁夏','吉林','内蒙古','陕西','新疆','甘肃','青海','西藏']
 
+
+setSelectedRegion = (region)->
+  selectedRegion = region
+
+  jQuery("#regionBtn").html selectedRegion
+  jQuery("#newsTabBtn a").html "#{selectedRegion}新闻"
+  jQuery("#regionBtn").removeAttr "active"
+  jQuery(document).attr "title", "#{selectedRegion}疫情实时趋势&新闻"
+
+  if selectedRegion == '全国'
+    jQuery("#secondChart").css "height","800px"
+  else
+    jQuery("#secondChart").css "height","260px"
+
+  jQuery("#chartTabBtn a").html "#{selectedRegion}疫情"
+
+  if secondChart
+    secondChart.resize()
+  else
+    secondChart = echarts.init document.getElementById("secondChart"), 'dark'
+
+  
 jQuery(document).ready ->
   
 
   cookieRegion = Cookies.get "selectedRegion"
   if safeRegion.indexOf(cookieRegion) != -1
-    selectedRegion = cookieRegion
+    setSelectedRegion cookieRegion
   else
-    selectedRegion = "全国"
+    setSelectedRegion "全国"
     
-  jQuery("#newsTabBtn a").html "#{selectedRegion}新闻"
-  jQuery("#regionBtn").html selectedRegion
-  jQuery(document).attr "title", "#{selectedRegion}疫情实时趋势&新闻"
+  # jQuery("#newsTabBtn a").html "#{selectedRegion}新闻"
+  # jQuery("#regionBtn").html selectedRegion
+  # jQuery(document).attr "title", "#{selectedRegion}疫情实时趋势&新闻"
 
   firstChart = echarts.init document.getElementById("main"), 'dark'
-  secondChart = echarts.init document.getElementById("secondChart"), 'dark'
+  mapChart = echarts.init document.getElementById("mapChart"), 'light'
+  
 
   if isPhone()
     console.log "dds"
@@ -604,12 +735,9 @@ jQuery(document).ready ->
       jQuery("#all").css "transform", "scale(#{width / 780.0})"
 
   jQuery("#select").change ->
-    selectedRegion = jQuery(this).val()
+    setSelectedRegion jQuery(this).val()
     Cookies.set "selectedRegion", selectedRegion
-    jQuery("#regionBtn").html selectedRegion
-    jQuery("#newsTabBtn a").html "#{selectedRegion}新闻"
-    jQuery("#regionBtn").removeAttr "active"
-    jQuery(document).attr "title", "#{selectedRegion}疫情实时趋势&新闻"
+
 
     if selectedPageIndex == 0
       reload()
@@ -637,7 +765,7 @@ jQuery(document).ready ->
       a.click();
 
 
-  jQuery("#collapseExample").collapse()
+  # jQuery("#collapseExample").collapse()
   jQuery("#collapseExample").on "shown.bs.collapse", ->
     jQuery("#secondContentCardHeader").addClass "dropup"
   jQuery("#collapseExample").on "hidden.bs.collapse", ->
@@ -649,10 +777,13 @@ jQuery(document).ready ->
       jumpToPage index
 
   # requestallRegionTrendData()
-  urlPage = getURLParamWithKey "p"
-  if urlPage and parseInt(urlPage) <= 2 and parseInt(urlPage) >= 0
-    jumpToPage parseInt urlPage
-    window.history.pushState(null,null,'?p=1')
-  else
-    jumpToPage 0
+  setTimeout ()->
+    urlPage = getURLParamWithKey "p"
+    if urlPage and parseInt(urlPage) <= 2 and parseInt(urlPage) >= 0
+      jumpToPage parseInt urlPage
+    else
+      jumpToPage 0
+  , 300
+
+  reloadSelect()
 
