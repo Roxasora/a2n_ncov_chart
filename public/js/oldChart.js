@@ -473,7 +473,7 @@
         var a, isSars, isWuhan, now, time;
         a = document.createElement('a');
         a.href = canvas.toDataURL("image/jpeg").replace("image/jpeg", "image/octet-stream");
-        isWuhan = jQuery("#select").val() === "wuhan";
+        isWuhan = jQuery("#select").val() === "武汉";
         isSars = jQuery("#select").val() === "sars";
         now = new Date();
         time = "" + (now.getFullYear()) + "-" + (now.getMonth() + 1) + "-" + (now.getDate());

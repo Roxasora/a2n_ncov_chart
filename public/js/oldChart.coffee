@@ -566,7 +566,7 @@ jQuery(document).ready ->
       a = document.createElement('a');
       #toDataURL defaults to png, so we need to request a jpeg, then convert for file download.
       a.href = canvas.toDataURL("image/jpeg").replace("image/jpeg", "image/octet-stream");
-      isWuhan = jQuery("#select").val() == "wuhan"
+      isWuhan = jQuery("#select").val() == "武汉"
       isSars = jQuery("#select").val() == "sars"
       now = new Date()
       time = "#{now.getFullYear()}-#{now.getMonth()+1}-#{now.getDate()}"
