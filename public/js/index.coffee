@@ -540,7 +540,7 @@ reloadMapChart = ()->
         continue
       item = {
         name : cityItem.name
-        value : [cityGeoArray[0], cityGeoArray[1], 1.5 * Math.log2(cityItem.total.confirm)]
+        value : [cityGeoArray[0], cityGeoArray[1], cityItem.total.confirm]
       }
       confirmedDataArray.push item
     
@@ -552,6 +552,8 @@ reloadMapChart = ()->
   # bmap.addControl(new BMap.MapTypeControl());
   bmap.disableDragging()
   bmap.disableScrollWheelZoom()
+  bmap.disablePinchToZoom()
+  bmap.disableDoubleClickZoom()
 
 
 reloadTabData = ()->
@@ -703,8 +705,10 @@ setSelectedRegion = (region)->
 
   if selectedRegion == '全国'
     jQuery("#secondChart").css "height","800px"
+    # jQuery("#thirdContent").insertBefore jQuery("#secondContent")
   else
     jQuery("#secondChart").css "height","260px"
+    jQuery("#secondContent").insertBefore jQuery("#thirdContent")
 
   jQuery("#chartTabBtn a").html "#{selectedRegion}疫情"
 

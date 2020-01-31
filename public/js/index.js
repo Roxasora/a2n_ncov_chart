@@ -515,7 +515,7 @@
         }
         item = {
           name: cityItem.name,
-          value: [cityGeoArray[0], cityGeoArray[1], 1.5 * Math.log2(cityItem.total.confirm)]
+          value: [cityGeoArray[0], cityGeoArray[1], cityItem.total.confirm]
         };
         confirmedDataArray.push(item);
       }
@@ -525,7 +525,9 @@
     mapChart.setOption(option);
     bmap = mapChart.getModel().getComponent('bmap').getBMap();
     bmap.disableDragging();
-    return bmap.disableScrollWheelZoom();
+    bmap.disableScrollWheelZoom();
+    bmap.disablePinchToZoom();
+    return bmap.disableDoubleClickZoom();
   };
 
   reloadTabData = function() {};
@@ -668,6 +670,7 @@
       jQuery("#secondChart").css("height", "800px");
     } else {
       jQuery("#secondChart").css("height", "260px");
+      jQuery("#secondContent").insertBefore(jQuery("#thirdContent"));
     }
     jQuery("#chartTabBtn a").html("" + selectedRegion + "疫情");
     if (secondChart) {

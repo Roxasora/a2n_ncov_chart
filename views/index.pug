@@ -38,24 +38,27 @@ html
       ga('send', 'pageview');
   body
     nav.navbar.navbar-expand-lg.navbar-light.bg-light
-      a.navbar-brand(href="https://shimo.im/docs/Y83DY3CY8JH8wkt8")
-        img.logo(src="images/a2nlogo.png", alt="") 
-        | 实时疫情·新闻·资讯
-      button.btn.btn-light.dropdown-toggle#regionBtn(type='button', data-toggle='collapse', data-target='#navbarSupportedContent', aria-controls='navbarSupportedContent', aria-expanded='false', aria-label='Toggle navigation') 全国
+      .container
+        a.ml-md-4.navbar-brand(href="https://shimo.im/docs/Y83DY3CY8JH8wkt8")
+          img.logo(src="images/a2nlogo.png", alt="") 
+          | 实时疫情·新闻·资讯
+        button.ml-auto.btn.btn-light.dropdown-toggle#regionBtn(type='button', data-toggle='collapse', data-target='#navbarSupportedContent', aria-controls='navbarSupportedContent', aria-expanded='false', aria-label='Toggle navigation') 全国
 
-      select#select(name='select')
-        option(value='china') 全国
-        option(value='wuhan') 武汉
-        option(value='sars') SARS
+        select#select(name='select')
+          option(value='china') 全国
+          option(value='wuhan') 武汉
+          option(value='sars') SARS
+        .clearFloat
 
-      nav.d-flex.justify-content-center#tabNav(aria-label='Page navigation example')
-        ul.pagination
-          li.page-item.active#chartTabBtn
-            a.page-link 实时疫情
-          li.page-item#newsTabBtn
-            a.page-link 全国新闻
-          li.page-item#toolsTabBtn
-            a.page-link 实用网站大全
+      .container
+        nav.d-flex.justify-content-center#tabNav(aria-label='Page navigation example')
+          ul.pagination
+            li.page-item.active#chartTabBtn
+              a.page-link 实时疫情
+            li.page-item#newsTabBtn
+              a.page-link 全国新闻
+            li.page-item#toolsTabBtn
+              a.page-link 实用网站大全
     
     .header.hidden
 
@@ -84,7 +87,7 @@ html
           .card-header#thirdContentCardHeader(data-toggle='collapse', href='#thirdCollapseDiv', role='button', aria-expanded='false', aria-controls='thirdCollapseDiv')
             .dropdown-toggle
               i.iconfont.icon-ditu.text-warning
-              span#thirdContentHeaderTitle 全国疫情地图
+              span#thirdContentHeaderTitle 全国疫情分布地图
             
           .card-body#thirdCollapseDiv.collapse.show
             #mapChart

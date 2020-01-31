@@ -123,7 +123,7 @@ window.drawMapOption = function (confirmedDataArray) {
                 coordinateSystem: 'bmap',
                 data: confirmedDataArray,
                 symbolSize: function (val) {
-                    return val[2];
+                    return 1.5 * Math.log2(val[2]);
                 },
                 label: {
                     formatter: '{b}',
@@ -147,7 +147,7 @@ window.drawMapOption = function (confirmedDataArray) {
                     return b.value[2] - a.value[2];
                 }).slice(0, 6),
                 symbolSize: function (val) {
-                    return val[2];
+                    return 1.5 * Math.log2(val[2]);
                 },
                 showEffectOn: 'render',
                 rippleEffect: {
@@ -157,7 +157,7 @@ window.drawMapOption = function (confirmedDataArray) {
                 label: {
                     formatter: '{b}',
                     position: 'right',
-                    show: true
+                    show: false,
                 },
                 itemStyle: {
                     color: 'purple',

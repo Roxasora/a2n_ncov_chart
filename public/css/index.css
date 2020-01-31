@@ -12,6 +12,7 @@ body {
   max-width: 600px;
   border-radius: 0 0 6px 6px;
   z-index: 99999999;
+  display: block;
 }
 .navbar .navbar-brand {
   font-size: 1em;
