@@ -101,14 +101,14 @@
     nConData;
     if (isMainChina) {
       nConData = mainChinaData;
-      jQuery("#regionName").html("全国");
+      jQuery("#regionName span").html("全国");
       jQuery("#title").html("全国新型冠状病毒相关各类人数折线图");
       jQuery("#confirmed_suffix").html("疑似");
       legendData = ['确诊', '疑似', '死亡', '治愈'];
     } else {
       nConData = allRegionTrendData[selectedRegion];
       jQuery("#title").html("" + selectedRegion + "新型冠状病毒相关各类人数折线图");
-      jQuery("#regionName").html("" + selectedRegion);
+      jQuery("#regionName span").html("" + selectedRegion);
       jQuery("#confirmed_suffix").html("疑似");
       legendData = ['确诊'];
     }

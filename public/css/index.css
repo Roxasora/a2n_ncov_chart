@@ -16,6 +16,7 @@ body {
 .navbar .navbar-brand {
   font-size: 1em;
   font-weight: 600;
+  color: #676767;
 }
 .navbar .navbar-brand .logo {
   height: 20px;
@@ -62,9 +63,12 @@ body {
 #text #regionName {
   float: left;
   height: 48px;
-  width: 60px;
+  width: 70px;
   line-height: 48px;
   border-right: 1px solid #383838;
+}
+#text #regionName i {
+  margin-left: 5px;
 }
 #tip {
   margin-top: 15px;
@@ -110,10 +114,10 @@ body {
   height: 50%;
 }
 #confirmed {
-  color: #CDAF43;
+  color: #ffcf22;
 }
 #suspected {
-  color: #c584bf;
+  color: #ff8af4;
 }
 #dead {
   color: #ef4b4b;
@@ -203,17 +207,29 @@ body {
 #loadingContainer .spinner-border {
   margin-top: 80%;
 }
+.iconfont {
+  margin-right: 5px;
+  font-weight: 600;
+}
 .footer {
   font-size: 12px;
   line-height: 24px;
   text-align: center;
   padding-bottom: 40px;
+  color: #808080;
+}
+.footer .blockLink {
   color: #fff;
+  background: #fff;
+  padding: 2px 3px;
+  position: relative;
+  top: 1px;
+  border-radius: 2px;
+}
+.footer .blockLink img {
+  height: 16px;
 }
 .footer a {
+  margin: 0 8px;
   color: #fff;
-  background: #007bff;
-  padding: 2px 4px;
-  border-radius: 2px;
-  margin-left: 8px;
 }
