@@ -13,7 +13,7 @@ window.drawMapOption = function (confirmedDataArray) {
             trigger: 'item'
         },
         bmap: {
-            center: [104.114129, 37.550339],
+            center: [108.166129, 36.550339],
             zoom: 3,
             roam: true,
             mapStyle: {

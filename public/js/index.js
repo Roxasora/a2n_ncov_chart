@@ -496,7 +496,7 @@
   };
 
   reloadMapChart = function() {
-    var cityGeoArray, cityItem, confirmedDataArray, item, option, provinceGeoArray, provinceItem, _i, _j, _len, _len1, _ref, _ref1;
+    var bmap, cityGeoArray, cityItem, confirmedDataArray, item, option, provinceGeoArray, provinceItem, _i, _j, _len, _len1, _ref, _ref1;
     if (mapHasUpdated) {
       return;
     }
@@ -522,7 +522,10 @@
     }
     option = window.drawMapOption(confirmedDataArray);
     mapChart.clear();
-    return mapChart.setOption(option);
+    mapChart.setOption(option);
+    bmap = mapChart.getModel().getComponent('bmap').getBMap();
+    bmap.disableDragging();
+    return bmap.disableScrollWheelZoom();
   };
 
   reloadTabData = function() {};
