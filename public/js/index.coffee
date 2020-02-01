@@ -697,6 +697,7 @@ getURLParamWithKey = (key) ->
 
 
 setSelectedRegion = (region)->
+  oldRegion = selectedRegion
   selectedRegion = region
 
   jQuery("#regionBtn").html selectedRegion
@@ -704,15 +705,20 @@ setSelectedRegion = (region)->
   jQuery("#regionBtn").removeAttr "active"
   jQuery(document).attr "title", "#{selectedRegion}疫情实时趋势&新闻"
 
+
   if selectedRegion == '全国'
+    if oldRegion != '全国'
+      jQuery(".thirdContent").insertBefore jQuery(".secondContent")
+
     jQuery("#secondChart").css "height","800px"
-    # jQuery("#thirdContent").insertBefore jQuery("#secondContent")
 
     jQuery("#text").removeClass "threeItem"
     jQuery("#text .textItem").eq(1).removeClass "hidden"
   else
+    if oldRegion == '全国'
+      jQuery(".secondContent").insertBefore jQuery(".thirdContent")
+
     jQuery("#secondChart").css "height","260px"
-    jQuery("#secondContent").insertBefore jQuery("#thirdContent")
 
     jQuery("#text").addClass "threeItem"
     jQuery("#text .textItem").eq(1).addClass "hidden"
