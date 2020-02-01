@@ -1,5 +1,18 @@
 window.drawMapOption = function (confirmedDataArray) {
-	var data = [
+
+    var windowWidth = jQuery(document).width()
+    var zoom = 0
+    if (windowWidth < 500) {
+        zoom = 4.0
+    }
+    else if (windowWidth <= 700) {
+        zoom = 5.0
+    } else {
+        zoom = 5.4
+    }
+
+
+    var data = [
      {name: '海门', value: 90},
      {name: '鄂尔多斯', value: 120}
     ];
@@ -13,8 +26,8 @@ window.drawMapOption = function (confirmedDataArray) {
             trigger: 'item'
         },
         bmap: {
-            center: [108.166129, 36.550339],
-            zoom: 3,
+            center: [108.166129, 34.550339],
+            zoom: zoom,
             roam: true,
             mapStyle: {
                 styleJson: [{
@@ -123,7 +136,7 @@ window.drawMapOption = function (confirmedDataArray) {
                 coordinateSystem: 'bmap',
                 data: confirmedDataArray,
                 symbolSize: function (val) {
-                    return 1.5 * Math.log2(val[2]);
+                    return 1.7 * Math.log2(val[2]);
                 },
                 label: {
                     formatter: '{b}',
@@ -131,7 +144,8 @@ window.drawMapOption = function (confirmedDataArray) {
                     show: false
                 },
                 itemStyle: {
-                    color: 'purple'
+                    color: 'purple',
+                    opacity : 0.7
                 },
                 emphasis: {
                     label: {
@@ -147,7 +161,7 @@ window.drawMapOption = function (confirmedDataArray) {
                     return b.value[2] - a.value[2];
                 }).slice(0, 6),
                 symbolSize: function (val) {
-                    return 1.5 * Math.log2(val[2]);
+                    return 1.4 * Math.log2(val[2]);
                 },
                 showEffectOn: 'render',
                 rippleEffect: {
@@ -160,9 +174,10 @@ window.drawMapOption = function (confirmedDataArray) {
                     show: false,
                 },
                 itemStyle: {
-                    color: 'purple',
+                    color: 'red',
+                    opacity : 0.6,
                     shadowBlur: 10,
-                    shadowColor: '#333'
+                    shadowColor: 'rgba(0,0,0,0.5)'
                 },
                 zlevel: 1
             }

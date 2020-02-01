@@ -1,0 +1,66 @@
+html
+  head
+    title A2N全国疫情散布图
+    meta(charset='utf-8')
+    meta(name='renderer', content='webkit')
+    meta(name='viewport', content='width=device-width,initial-scale=1.0 user-scalable=no')
+    link(rel='shortcut icon', type='image/png', href='favicon_64.ico')
+    // <script type="text/javascript" src="js/jq.1.10.2.js"></script>
+    link(rel='stylesheet', href='https://cdn.jsdelivr.net/npm/bootstrap@4.4.1/dist/css/bootstrap.min.css', integrity='sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh', crossorigin='anonymous')
+    link(rel="stylesheet", href="https:////at.alicdn.com/t/font_1623822_6prssvkqytt.css")
+    script(src='https://cdn.jsdelivr.net/npm/jquery@3.2.1/dist/jquery.min.js')
+    script(src='https://cdn.jsdelivr.net/npm/js-cookie@beta/dist/js.cookie.min.js')
+
+    //百度地图 sdk
+    script(type='text/javascript', src='http://api.map.baidu.com/api?v=2.0&ak=GIYd9jaUlH7Mrda5HnIdeH65dBajyuVd')
+
+    script(src='https://cdn.jsdelivr.net/npm/bootstrap@4.4.1/dist/js/bootstrap.min.js', integrity='sha384-wfSDF2E50Y2D1uUdj0O3uMBJnjuUD4Ih7YwaYd1iqfktj0Uod8GCExl3Og8ifwB6', crossorigin='anonymous')
+    script(type='text/javascript', src='js/testMap2.js?21312')
+    script(type='text/javascript', src='js/cityGeo.js?21312')
+    script(type='text/javascript', src='js/echarts.min.js?')
+    script(type='text/javascript', src='js/bmap.js?21312')
+      
+    script(type='text/javascript', src='js/html2canvas.min.js?')
+
+
+    script(type='text/javascript', src='js/map.js?21312')
+    link(rel='stylesheet', type='text/css', href='css/map.css')
+    script.
+      (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+      (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+      m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+      })(window,document,'script','https://www.google-analytics.com/analytics.js','ga');
+      ga('create', 'UA-78069116-1', 'auto');
+      ga('send', 'pageview');
+  body
+    nav.navbar.navbar-expand-lg.navbar-light.bg-light
+      .container
+        a.ml-md-4.navbar-brand(href="/")
+          img.logo(src="images/a2nlogo.png", alt="") 
+          | 全国疫情分布
+        a.btn.btn-primary#regionBtn(href="/") 更多疫情·资讯 
+
+    .header.hidden
+
+    #mapChart
+
+    #tip
+          
+
+    #loadingContainer
+      .spinner-border.text-primary(role='status')
+        span.sr-only Loading...
+
+    .footer
+      | 本网页由 
+      a.blockLink(href="https://shimo.im/docs/Y83DY3CY8JH8wkt8")
+        img(src="images/a2nlogo.png", alt="")
+      | 志愿者开发
+      br
+      | 页面数据来源·开源支持：
+      a(href="https://3g.dxy.cn/newh5/view/pneumonia") 丁香医生
+      a(href="https://news.qq.com/zt2020/page/feiyan.htm") 腾讯新闻
+      a(href="https://github.com/BlankerL/DXY-2019-nCoV-Crawler") BlankerL
+      .f2 仅用于抗击疫情 严禁用于商业用途
+      .f2 Copyright © A2N·青年李大猫 (851733805@qq.com)
+      a(href="https://github.com/Roxasora/a2n_ncov_chart") Github 项目地址

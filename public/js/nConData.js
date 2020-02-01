@@ -194,5 +194,12 @@ window.nCon_data = [
         "curedCase": 171,
         "dead": 213,
         "suspected": 15238
+    },
+    {
+        "date": "2020-01-30T16:00:00.000Z",
+        "confirmed": 11791,
+        "curedCase": 243,
+        "dead": 259,
+        "suspected": 17988
     }
 ]

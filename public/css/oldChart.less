@@ -7,6 +7,7 @@ body {
 
 .header {
   height: 30px;
+  z-index: 99999999999;
 }
 
 #select {
@@ -25,6 +26,7 @@ body {
 }
 
 #all {
+  position: relative;
   background-color: #101010;
   max-width: 780px;
   transform-origin: left;
@@ -98,13 +100,12 @@ body {
 
 .watermark {
   width: 100%;
-  height: 120%;
+  height: 100%;
   position: absolute;
   left: 0;
-  top: -10%;
-  background: url(../images/watermark.png);
+  top: 0%;
+  background: url(../images/watermark_old.png);
   background-size: 30%;
-  transform: rotate(-45deg);
 }
 
 .navbar {

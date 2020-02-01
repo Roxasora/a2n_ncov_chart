@@ -461,7 +461,7 @@
         mainChinaData[mainChinaData.length - 1].confirmed = chinaTotal.confirm;
         mainChinaData[mainChinaData.length - 1].suspected = chinaTotal.suspect;
         mainChinaData[mainChinaData.length - 1].dead = chinaTotal.dead;
-        jQuery("#tip").html("最后更新：" + allRegionCurrentAreaTreeData.lastUpdateTime + " <br> 点击折线图查看单日详细数据，拖动进度条查看早期数据");
+        jQuery("#tip").html("最后更新：" + allRegionCurrentAreaTreeData.lastUpdateTime + " <br> 点击折线图查看单日详细数据");
         console.log(allRegionCurrentAreaTreeData);
         reloadMapChart();
         if (callback) {
@@ -668,9 +668,13 @@
     jQuery(document).attr("title", "" + selectedRegion + "疫情实时趋势&新闻");
     if (selectedRegion === '全国') {
       jQuery("#secondChart").css("height", "800px");
+      jQuery("#text").removeClass("threeItem");
+      jQuery("#text .textItem").eq(1).removeClass("hidden");
     } else {
       jQuery("#secondChart").css("height", "260px");
       jQuery("#secondContent").insertBefore(jQuery("#thirdContent"));
+      jQuery("#text").addClass("threeItem");
+      jQuery("#text .textItem").eq(1).addClass("hidden");
     }
     jQuery("#chartTabBtn a").html("" + selectedRegion + "疫情");
     if (secondChart) {

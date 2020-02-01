@@ -63,6 +63,7 @@ body {
 }
 
 #text {
+  display: flex;
   text-align: center;
   position: relative;
   font-size: 16px;
@@ -72,10 +73,15 @@ body {
   padding: 10px;
   border-radius: 6px;
   margin-bottom: 0;
+
+  &.threeItem {
+    .textItem {
+      width: 33%;
+    }
+  }
   
   .textItem {
     width: 25%;
-    float: left;
     .number {
       width: 100%;
       display: block;
@@ -143,7 +149,7 @@ body {
   margin-left: 10px;
   position: relative;
   // top: -20px;
-  height: 380px;
+  height: 280px;
   // width: 100%;
   // height: 540px;
 }
@@ -221,7 +227,10 @@ body {
   padding-top: 0;
   #mapChart {
     width: 100%;
-    height: 300px;
+    height: 280px;
+    .ec-extension-bmap {
+      border-radius: 6px;
+    }
   }
   #mapContainer {
     width: 100%;

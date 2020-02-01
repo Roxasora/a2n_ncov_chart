@@ -10,6 +10,7 @@ var bodyParser = require('body-parser');
 
 var index = require('./routes/indexRouter');
 var oldChart = require('./routes/oldChartRouter');
+var mapPage = require('./routes/mapRouter');
 
 var app = express();
 app.use(compression());
@@ -53,6 +54,7 @@ app.get('/api_proxy/get', function (req, res) {
 })
 
 
+app.use('/map', mapPage);
 app.use('/oldchart', oldChart);
 app.use('/', index);
 

@@ -2,17 +2,16 @@ body {
   padding: 0;
   margin: 0;
   background-color: #000;
-  max-width: 600px;
   margin: 0 auto;
 }
 .navbar {
   position: fixed;
   top: 0;
   width: 100%;
-  max-width: 600px;
   border-radius: 0 0 6px 6px;
   z-index: 99999999;
   display: block;
+  box-shadow: 0px 0px 9px rgba(0, 0, 0, 0.1);
 }
 .navbar .navbar-brand {
   font-size: 1em;
@@ -50,101 +49,19 @@ body {
 .clearFloat {
   clear: both;
 }
-#text {
-  display: flex;
-  text-align: center;
-  position: relative;
-  font-size: 16px;
-  color: #fff;
-  background: #272727;
-  margin: 20px;
-  padding: 10px;
-  border-radius: 6px;
-  margin-bottom: 0;
-}
-#text.threeItem .textItem {
-  width: 33%;
-}
-#text .textItem {
-  width: 25%;
-}
-#text .textItem .number {
-  width: 100%;
-  display: block;
-  font-size: 16px;
-}
-#text .textItem .name {
+#regionBtn {
   font-size: 12px;
-  color: #808080;
-}
-#text #regionName {
-  float: left;
-  height: 48px;
-  width: 70px;
-  line-height: 48px;
-  border-right: 1px solid #383838;
-}
-#text #regionName i {
-  margin-left: 5px;
+  font-weight: bold;
 }
 #tip {
-  margin-top: 15px;
-  font-size: 10px;
-  color: #808080;
+  position: absolute;
+  top: 60px;
+  width: 80%;
+  left: 10%;
   text-align: center;
-}
-#all {
-  background-color: #101010;
-  max-width: 780px;
-  transform-origin: left;
-  margin: 0 auto;
-  overflow: hidden;
-  border-radius: 0 0 6px 6px;
-  padding-bottom: -20px;
-}
-#all.phone {
-  width: 100%;
-  min-width: 100%;
-}
-#title {
-  padding-top: 20px;
-  text-align: center;
-  font-size: 20px;
+  font-size: 12px;
   color: #fff;
-}
-.hidden {
-  display: none;
-}
-#desc {
-  text-align: center;
-  color: #9e9e9e;
-  font-size: 18px;
-}
-#main {
-  margin-top: 0px;
-  margin-left: 10px;
-  position: relative;
-  height: 280px;
-}
-#sarsChart {
-  width: 100%;
-  height: 50%;
-}
-#confirmed {
-  color: #ffcf22;
-}
-#suspected {
-  color: #ff8af4;
-}
-#dead {
-  color: #ef4b4b;
-}
-#cured {
-  color: #7ED03D;
-}
-#stamp {
-  color: #808080;
-  font-size: 18px;
+  text-shadow: 0px 0px 4px rgba(0, 0, 0, 0.5);
 }
 .watermark {
   width: 60%;
@@ -158,45 +75,19 @@ body {
   background-size: cover;
   background-repeat: no-repeat;
 }
-.card-body {
-  padding: 0.8rem !important;
-}
-.cardDiv {
-  padding: 10px;
-  padding-top: 0;
-  padding-bottom: 0;
-  position: relative;
-}
-.cardDiv #cardSubtitle {
-  position: relative;
-  font-size: 12px;
-  line-height: 100%;
-  color: #fff;
-  margin-top: 5px;
-}
-.cardDiv #secondChart {
+#mapChart {
   width: 100%;
-  height: 800px;
+  height: 80%;
 }
-.cardDiv .watermark {
-  top: 20%;
-}
-.thirdContent {
-  padding-top: 0;
-}
-.thirdContent #mapChart {
-  width: 100%;
-  height: 280px;
-}
-.thirdContent #mapChart .ec-extension-bmap {
+#mapChart .ec-extension-bmap {
   border-radius: 6px;
 }
-.thirdContent #mapContainer {
+#mapContainer {
   width: 100%;
   height: 400px;
   overflow: hidden;
 }
-.thirdContent #mapContainer #mapIFrame {
+#mapContainer #mapIFrame {
   width: 120%;
   height: 500px;
   transform-origin: left top;
@@ -239,9 +130,10 @@ body {
   font-weight: 600;
 }
 .footer {
-  font-size: 12px;
+  font-size: 11px;
   line-height: 24px;
   text-align: center;
+  padding-top: 10px;
   padding-bottom: 40px;
   color: #808080;
 }
