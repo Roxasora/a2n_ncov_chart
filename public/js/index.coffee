@@ -554,6 +554,7 @@ reloadMapChart = ()->
   bmap.disableScrollWheelZoom()
   bmap.disablePinchToZoom()
   bmap.disableDoubleClickZoom()
+  bmap.setMaxZoom 6
 
 
 reloadTabData = ()->

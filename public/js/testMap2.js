@@ -14,7 +14,11 @@ window.drawMapOption = function (confirmedDataArray) {
 
     option = {
         tooltip : {
-            trigger: 'item'
+            trigger: 'item',
+            formatter: function (params) {
+                console.log(params)
+                return "" + params.name + "确诊:" + params.value[2];
+            }
         },
         bmap: {
             center: [108.166129, 38.550339],

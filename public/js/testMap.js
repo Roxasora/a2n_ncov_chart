@@ -15,7 +15,10 @@ window.drawMapOption = function (confirmedDataArray) {
     option = {
         tooltip : {
             trigger: 'item',
-            show: false
+            formatter: function (params) {
+                console.log(params)
+                return "" + params.name + "确诊:" + params.value[2];
+            }
         },
         bmap: {
             center: [108.166129, 35.550339],
@@ -148,7 +151,8 @@ window.drawMapOption = function (confirmedDataArray) {
                         "featureType": "label",
                         "elementType": "all",
                         "stylers": {
-                            "visibility": "off"
+                            "visibility": "on",
+                            opacity : 0.5
                         }
                     }
                 ]

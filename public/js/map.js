@@ -112,7 +112,8 @@
     option = window.drawMapOption(confirmedDataArray);
     mapChart.clear();
     mapChart.setOption(option);
-    return bmap = mapChart.getModel().getComponent('bmap').getBMap();
+    bmap = mapChart.getModel().getComponent('bmap').getBMap();
+    return bmap.setMaxZoom(6);
   };
 
   timeStrWithUnix = function(timeStamp) {

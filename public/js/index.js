@@ -527,7 +527,8 @@
     bmap.disableDragging();
     bmap.disableScrollWheelZoom();
     bmap.disablePinchToZoom();
-    return bmap.disableDoubleClickZoom();
+    bmap.disableDoubleClickZoom();
+    return bmap.setMaxZoom(6);
   };
 
   reloadTabData = function() {};

@@ -85,6 +85,7 @@ reloadMapChart = ()->
   mapChart.setOption option
 
   bmap = mapChart.getModel().getComponent('bmap').getBMap();
+  bmap.setMaxZoom 6
   # bmap.addControl(new BMap.MapTypeControl());
   # bmap.disableDragging()
   # bmap.disableScrollWheelZoom()
