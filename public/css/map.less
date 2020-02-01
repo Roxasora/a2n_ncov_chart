@@ -3,8 +3,6 @@ body {
   margin: 0;
 
   background-color: #000;
-
-  margin: 0 auto;
 }
 
 .navbar {
@@ -94,7 +92,7 @@ body {
 
 #mapChart {
   width: 100%;
-  height: 80%;
+  height: 500px;
   .ec-extension-bmap {
     border-radius: 6px;
   }
@@ -108,31 +106,6 @@ body {
     height: 500px;
     transform-origin: left top;
     transform: scale(0.8333);
-  }
-}
-
-.myPage {
-  margin-top: 100px;
-  padding: 20px;
-  display: none;
-  .pagePlaceholder {
-    height: 400px;
-  }
-}
-
-#chartPage {
-  padding: 0;
-  display: block;
-}
-
-#newsPage {
-  .newsSummary {
-    height: 50px;
-    overflow: hidden;
-    text-overflow: clip;
-  }
-  .list-group-item {
-    margin-bottom: 10px;
   }
 }
 
@@ -155,12 +128,16 @@ body {
 }
 
 .footer {
-  font-size: 11px;
-  line-height: 24px;
+  font-size: 10px;
+  line-height: 18px;
   text-align: center;
-  padding-top: 10px;
-  padding-bottom: 40px;
   color: #808080;
+  display: flex;
+  padding: 10px 0;
+  .footerContent {
+    margin-top: 5px;
+    width: 100%;
+  }
   .blockLink {
     color: #fff;
     background: #fff;

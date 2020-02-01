@@ -12,21 +12,12 @@ window.drawMapOption = function (confirmedDataArray) {
     }
 
 
-    var data = [
-    {name: '海门', value: 90},
-    {name: '鄂尔多斯', value: 120}
-    ];
-    var geoCoordMap = {
-        '海门':[121.15,31.89],
-        '鄂尔多斯':[109.781327,39.608266],
-    };
-
     option = {
         tooltip : {
             trigger: 'item'
         },
         bmap: {
-            center: [108.166129, 34.550339],
+            center: [108.166129, 38.550339],
             zoom: zoom,
             roam: true,
             mapStyle: {

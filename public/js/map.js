@@ -174,7 +174,11 @@
   };
 
   jQuery(document).ready(function() {
+    var footerHeight, windowHeight;
     mapChart = echarts.init(document.getElementById("mapChart"), 'light');
+    footerHeight = jQuery(".footer").height() + 20;
+    windowHeight = jQuery(window).height();
+    jQuery("#mapChart").css("height", "" + (windowHeight - footerHeight) + "px");
     jQuery("#export").click(function() {
       return html2canvas(document.querySelector("#all")).then(function(canvas) {
         var a, isSars, isWuhan, now, time;
