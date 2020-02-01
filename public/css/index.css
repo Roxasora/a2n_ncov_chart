@@ -191,6 +191,13 @@ body {
 .thirdContent #mapChart .ec-extension-bmap {
   border-radius: 6px;
 }
+.thirdContent #mapCover {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  top: 40px;
+  left: 0;
+}
 .thirdContent #mapContainer {
   width: 100%;
   height: 400px;
@@ -239,8 +246,8 @@ body {
   font-weight: 600;
 }
 .footer {
-  font-size: 12px;
-  line-height: 24px;
+  font-size: 10px;
+  line-height: 18px;
   text-align: center;
   padding-bottom: 40px;
   color: #808080;

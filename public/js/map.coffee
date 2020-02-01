@@ -157,7 +157,7 @@ getURLParamWithKey = (key) ->
 jQuery(document).ready ->
   mapChart = echarts.init document.getElementById("mapChart"), 'light'
 
-  footerHeight = jQuery(".footer").height() + 20
+  footerHeight = jQuery(".footer").height() + 30
   windowHeight = jQuery(window).height()
   jQuery("#mapChart").css "height", "#{windowHeight-footerHeight}px"
   

@@ -81,6 +81,13 @@ body {
 #mapChart .ec-extension-bmap {
   border-radius: 6px;
 }
+#mapCover {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  top: 0;
+  left: 0;
+}
 #mapContainer {
   width: 100%;
   height: 400px;
@@ -115,6 +122,7 @@ body {
   color: #808080;
   display: flex;
   padding: 10px 0;
+  padding-bottom: 20px;
 }
 .footer .footerContent {
   margin-top: 5px;

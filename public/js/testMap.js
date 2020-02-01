@@ -12,175 +12,199 @@ window.drawMapOption = function (confirmedDataArray) {
     }
 
 
-    var data = [
-     {name: '海门', value: 90},
-     {name: '鄂尔多斯', value: 120}
-    ];
-    var geoCoordMap = {
-        '海门':[121.15,31.89],
-        '鄂尔多斯':[109.781327,39.608266],
-    };
-
     option = {
         tooltip : {
-            trigger: 'item'
+            trigger: 'item',
+            show: false
         },
         bmap: {
-            center: [108.166129, 34.550339],
+            center: [108.166129, 35.550339],
             zoom: zoom,
             roam: true,
             mapStyle: {
-                styleJson: [{
-                    'featureType': 'water',
-                    'elementType': 'all',
-                    'stylers': {
-                        'color': '#d1d1d1'
+                styleJson: [
+                    {
+                        "featureType": "water",
+                        "elementType": "all",
+                        "stylers": {
+                            "color": "#044161"
+                        }
+                    },
+                    {
+                        "featureType": "land",
+                        "elementType": "all",
+                        "stylers": {
+                            "color": "#004981"
+                        }
+                    },
+                    {
+                        "featureType": "boundary",
+                        "elementType": "geometry",
+                        "stylers": {
+                            "color": "#064f85"
+                        }
+                    },
+                    {
+                        "featureType": "railway",
+                        "elementType": "all",
+                        "stylers": {
+                            "visibility": "off"
+                        }
+                    },
+                    {
+                        "featureType": "highway",
+                        "elementType": "geometry",
+                        "stylers": {
+                            "color": "#004981"
+                        }
+                    },
+                    {
+                        "featureType": "highway",
+                        "elementType": "geometry.fill",
+                        "stylers": {
+                            "color": "#005b96",
+                            "lightness": 1
+                        }
+                    },
+                    {
+                        "featureType": "highway",
+                        "elementType": "labels",
+                        "stylers": {
+                            "visibility": "off"
+                        }
+                    },
+                    {
+                        "featureType": "arterial",
+                        "elementType": "geometry",
+                        "stylers": {
+                            "color": "#004981"
+                        }
+                    },
+                    {
+                        "featureType": "arterial",
+                        "elementType": "geometry.fill",
+                        "stylers": {
+                            "color": "#00508b"
+                        }
+                    },
+                    {
+                        "featureType": "poi",
+                        "elementType": "all",
+                        "stylers": {
+                            "visibility": "off"
+                        }
+                    },
+                    {
+                        "featureType": "green",
+                        "elementType": "all",
+                        "stylers": {
+                            "color": "#056197",
+                            "visibility": "off"
+                        }
+                    },
+                    {
+                        "featureType": "subway",
+                        "elementType": "all",
+                        "stylers": {
+                            "visibility": "off"
+                        }
+                    },
+                    {
+                        "featureType": "manmade",
+                        "elementType": "all",
+                        "stylers": {
+                            "visibility": "off"
+                        }
+                    },
+                    {
+                        "featureType": "local",
+                        "elementType": "all",
+                        "stylers": {
+                            "visibility": "off"
+                        }
+                    },
+                    {
+                        "featureType": "arterial",
+                        "elementType": "labels",
+                        "stylers": {
+                            "visibility": "off"
+                        }
+                    },
+                    {
+                        "featureType": "boundary",
+                        "elementType": "geometry.fill",
+                        "stylers": {
+                            "color": "#029fd4"
+                        }
+                    },
+                    {
+                        "featureType": "building",
+                        "elementType": "all",
+                        "stylers": {
+                            "color": "#1a5787"
+                        }
+                    },
+                    {
+                        "featureType": "label",
+                        "elementType": "all",
+                        "stylers": {
+                            "visibility": "off"
+                        }
                     }
-                }, {
-                    'featureType': 'land',
-                    'elementType': 'all',
-                    'stylers': {
-                        'color': '#f3f3f3'
-                    }
-                }, {
-                    'featureType': 'railway',
-                    'elementType': 'all',
-                    'stylers': {
-                        'visibility': 'off'
-                    }
-                }, {
-                    'featureType': 'highway',
-                    'elementType': 'all',
-                    'stylers': {
-                        'color': '#fdfdfd'
-                    }
-                }, {
-                    'featureType': 'highway',
-                    'elementType': 'labels',
-                    'stylers': {
-                        'visibility': 'off'
-                    }
-                }, {
-                    'featureType': 'arterial',
-                    'elementType': 'geometry',
-                    'stylers': {
-                        'color': '#fefefe'
-                    }
-                }, {
-                    'featureType': 'arterial',
-                    'elementType': 'geometry.fill',
-                    'stylers': {
-                        'color': '#fefefe'
-                    }
-                }, {
-                    'featureType': 'poi',
-                    'elementType': 'all',
-                    'stylers': {
-                        'visibility': 'off'
-                    }
-                }, {
-                    'featureType': 'green',
-                    'elementType': 'all',
-                    'stylers': {
-                        'visibility': 'off'
-                    }
-                }, {
-                    'featureType': 'subway',
-                    'elementType': 'all',
-                    'stylers': {
-                        'visibility': 'off'
-                    }
-                }, {
-                    'featureType': 'manmade',
-                    'elementType': 'all',
-                    'stylers': {
-                        'color': '#d1d1d1'
-                    }
-                }, {
-                    'featureType': 'local',
-                    'elementType': 'all',
-                    'stylers': {
-                        'color': '#d1d1d1'
-                    }
-                }, {
-                    'featureType': 'arterial',
-                    'elementType': 'labels',
-                    'stylers': {
-                        'visibility': 'off'
-                    }
-                }, {
-                    'featureType': 'boundary',
-                    'elementType': 'all',
-                    'stylers': {
-                        'color': '#fefefe'
-                    }
-                }, {
-                    'featureType': 'building',
-                    'elementType': 'all',
-                    'stylers': {
-                        'color': '#d1d1d1'
-                    }
-                }, {
-                    'featureType': 'label',
-                    'elementType': 'labels.text.fill',
-                    'stylers': {
-                        'color': '#999999'
-                    }
-                }]
+                ]
             }
         },
         series : [
-            {
-                name: '确诊人数',
-                type: 'scatter',
-                coordinateSystem: 'bmap',
-                data: confirmedDataArray,
-                symbolSize: function (val) {
-                    return 1.7 * Math.log2(val[2]);
-                },
-                label: {
-                    formatter: '{b}',
-                    position: 'right',
-                    show: false
-                },
-                itemStyle: {
-                    color: 'purple',
-                    opacity : 0.7
-                },
-                emphasis: {
-                    label: {
-                        show: true
-                    }
-                }
+        {
+            name: '确诊人数',
+            type: 'scatter',
+            coordinateSystem: 'bmap',
+            data: confirmedDataArray,
+            symbolSize: function (val) {
+                return 1.7 * Math.log2(val[2]);
             },
-            {
-                name: 'Top 5',
-                type: 'effectScatter',
-                coordinateSystem: 'bmap',
-                data: confirmedDataArray.sort(function (a, b) {
-                    return b.value[2] - a.value[2];
-                }).slice(0, 6),
-                symbolSize: function (val) {
-                    return 1.4 * Math.log2(val[2]);
-                },
-                showEffectOn: 'render',
-                rippleEffect: {
-                    brushType: 'stroke'
-                },
-                hoverAnimation: true,
+            label: {
+                formatter: '{b}',
+                position: 'right',
+                show: false
+            },
+            itemStyle: {
+                color: 'yellow',
+                opacity : 0.7
+            },
+            emphasis: {
                 label: {
-                    formatter: '{b}',
-                    position: 'right',
-                    show: false,
-                },
-                itemStyle: {
-                    color: 'red',
-                    opacity : 0.6,
-                    shadowBlur: 10,
-                    shadowColor: 'rgba(0,0,0,0.5)'
-                },
-                zlevel: 1
+                    show: false
+                }
             }
+        },
+        {
+            name: 'Top 5',
+            type: 'effectScatter',
+            coordinateSystem: 'bmap',
+            data: confirmedDataArray.sort(function (a, b) {
+                return b.value[2] - a.value[2];
+            }).slice(0, 6),
+            symbolSize: function (val) {
+                return 1.2 * Math.log2(val[2]);
+            },
+            showEffectOn: 'render',
+            rippleEffect: {
+                brushType: 'stroke'
+            },
+            hoverAnimation: true,
+            label: {
+                formatter: '{b}',
+                position: 'right',
+                show: false,
+            },
+            itemStyle: {
+                color: 'red',
+                shadowBlur: 10,
+                shadowColor: 'rgba(0,0,0,0.5)'
+            },
+            zlevel: 1
+        }
         ]
     };
     return option;
