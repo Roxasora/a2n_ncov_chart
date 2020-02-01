@@ -183,7 +183,7 @@ window.drawMapOption = function (confirmedDataArray) {
             }
         },
         {
-            name: 'Top 5',
+            name: '确诊人数较多地区',
             type: 'effectScatter',
             coordinateSystem: 'bmap',
             data: confirmedDataArray.sort(function (a, b) {
