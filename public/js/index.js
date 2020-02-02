@@ -137,9 +137,9 @@
     suspectedData = [];
     dataOffset = 0;
     if (nConData.length > 12) {
-      nConData = nConData.slice(nConData.length - 1 - 12, nConData.length - 1);
+      nConData = nConData.slice(nConData.length - 1 - 12, nConData.length);
     }
-    for (i = _i = 0, _ref = nConData.length - 1; _i < _ref; i = _i += 1) {
+    for (i = _i = 0, _ref = nConData.length; _i < _ref; i = _i += 1) {
       item = nConData[i];
       date = new Date(item['date']);
       xAxisData[i] = item.date;
