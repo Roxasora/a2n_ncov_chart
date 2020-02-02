@@ -81,20 +81,22 @@ html
       #all
         .watermark
         #text
-          .textItem
-            span.number#confirmed -
-            span.name 确诊
-          .textItem
-            span.number#suspected -
-            span.name 疑似
-          .textItem
-            span.number#dead -
-            span.name 死亡
-          .textItem
-            span.number#cured -
-            span.name 治愈
-          .clearFloat
-        #tip 点击折线图查看单日数据，拖动进度条查看早期数据
+          #timeStamp -
+          .flexStack
+            .textItem
+              span.number#confirmed -
+              span.name 确诊
+            .textItem
+              span.number#suspected -
+              span.name 疑似
+            .textItem
+              span.number#dead -
+              span.name 死亡
+            .textItem
+              span.number#cured -
+              span.name 治愈
+            .clearFloat
+        #tip 点击折线图查看单日数据
         #main
 
       .thirdContent.cardDiv

@@ -464,7 +464,7 @@
         mainChinaData[mainChinaData.length - 1].confirmed = chinaTotal.confirm;
         mainChinaData[mainChinaData.length - 1].suspected = chinaTotal.suspect;
         mainChinaData[mainChinaData.length - 1].dead = chinaTotal.dead;
-        jQuery("#tip").html("最后更新：" + allRegionCurrentAreaTreeData.lastUpdateTime + " <br> 点击折线图查看单日详细数据");
+        jQuery("#timeStamp").html("截止至：" + allRegionCurrentAreaTreeData.lastUpdateTime);
         console.log(allRegionCurrentAreaTreeData);
         reloadMapChart();
         if (callback) {
@@ -681,7 +681,7 @@
     jQuery("#regionBtn span").html(selectedRegion);
     jQuery("#newsTabBtn a").html("" + selectedRegion + "新闻");
     jQuery("#regionBtn").removeAttr("active");
-    jQuery(document).attr("title", "" + selectedRegion + "疫情实时趋势&新闻");
+    jQuery(document).attr("title", "" + selectedRegion + "疫情实时趋势、科普资料大全");
     if (selectedRegion === '全国') {
       if (oldRegion !== '全国') {
         jQuery(".thirdContent").insertBefore(jQuery(".secondContent"));
