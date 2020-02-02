@@ -49,6 +49,16 @@ body {
   display: flex;
   flex-direction: row;
   overflow: auto;
+  position: relative;
+}
+#tabNav .gradient {
+  position: fixed;
+  right: 0;
+  height: 100%;
+  width: 20px;
+  background: -webkit-linear-gradient(to right, rgba(0, 0, 0, 0), #000000);
+  background: -o-linear-gradient(to right, rgba(0, 0, 0, 0), #000000);
+  background: linear-gradient(to right, rgba(0, 0, 0, 0), #000000);
 }
 #tabNav li {
   flex: none;
@@ -289,7 +299,9 @@ body {
 }
 .iconfont {
   margin-right: 5px;
-  font-weight: 600;
+  font-size: 1.2em !important;
+  position: relative;
+  top: 0.1em;
 }
 .footer {
   font-size: 10px;

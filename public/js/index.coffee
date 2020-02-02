@@ -426,6 +426,7 @@ reloadSecondChart = ()->
     }
 
 
+  myChart.resize()
   myChart.clear()
   myChart.setOption option
 
@@ -770,7 +771,7 @@ jQuery(document).ready ->
 
     if selectedPageIndex == 0
       reload()
-    else if selectedPageIndex == 1
+    else if selectedPageIndex == 2
       newsData = []
       requestNewsData()
 

@@ -1,3 +1,9 @@
+.uGradient(@color1,@color2){
+    background: -webkit-linear-gradient(to right, @color1, @color2);
+    background: -o-linear-gradient(to right, @color1, @color2);
+    background: linear-gradient(to right, @color1, @color2);
+}
+
 body {
   padding: 0;
   margin: 0;
@@ -56,6 +62,14 @@ body {
   display: flex;
   flex-direction: row;
   overflow: auto;
+  position: relative;
+  .gradient {
+    position: fixed;
+    right: 0;
+    height: 100%;
+    width: 20px;
+    .uGradient(rgba(0,0,0,0), rgba(0,0,0,1));
+  }
   // ul {
   //   padding: 0 10px;
   //   margin: 0;
@@ -67,6 +81,7 @@ body {
     list-style: none;
     font-size: 15px;
     padding: 0 10px;
+    // color: #d6d6d6;
     a {
       padding: 11px 0px;
       display: inline-block;
@@ -345,7 +360,9 @@ body {
 
 .iconfont {
   margin-right: 5px;
-  font-weight: 600;
+  font-size: 1.2em !important;
+  position: relative;
+  top: 0.1em;
 }
 
 .footer {

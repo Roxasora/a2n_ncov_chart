@@ -381,6 +381,7 @@
         ]
       };
     }
+    myChart.resize();
     myChart.clear();
     return myChart.setOption(option);
   };
@@ -728,7 +729,7 @@
       Cookies.set("selectedRegion", selectedRegion);
       if (selectedPageIndex === 0) {
         return reload();
-      } else if (selectedPageIndex === 1) {
+      } else if (selectedPageIndex === 2) {
         newsData = [];
         return requestNewsData();
       }
