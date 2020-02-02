@@ -22,6 +22,17 @@ body {
 .navbar .container2 {
   background: #111;
   color: #fff;
+  position: relative;
+}
+.navbar .container2 .gradient {
+  position: absolute;
+  top: 0;
+  right: 0;
+  height: 100%;
+  width: 20px;
+  background: -webkit-linear-gradient(to right, rgba(0, 0, 0, 0), #000000);
+  background: -o-linear-gradient(to right, rgba(0, 0, 0, 0), #000000);
+  background: linear-gradient(to right, rgba(0, 0, 0, 0), #000000);
 }
 .navbar .navbar-brand {
   font-size: 1em;
@@ -43,6 +54,7 @@ body {
   position: relative;
 }
 .navbar #regionBtn {
+  font-weight: 700;
   font-size: 16px;
 }
 #tabNav {
@@ -51,15 +63,6 @@ body {
   flex-direction: row;
   overflow: auto;
   position: relative;
-}
-#tabNav .gradient {
-  position: fixed;
-  right: 0;
-  height: 100%;
-  width: 20px;
-  background: -webkit-linear-gradient(to right, rgba(0, 0, 0, 0), #000000);
-  background: -o-linear-gradient(to right, rgba(0, 0, 0, 0), #000000);
-  background: linear-gradient(to right, rgba(0, 0, 0, 0), #000000);
 }
 #tabNav li {
   flex: none;
@@ -302,7 +305,10 @@ body {
   margin-right: 5px;
   font-size: 1.2em !important;
   position: relative;
-  top: 0.1em;
+  top: 0.05em;
+}
+.iconfont.noMargin {
+  margin-right: 0;
 }
 .footer {
   font-size: 10px;

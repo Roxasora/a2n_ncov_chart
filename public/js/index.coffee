@@ -709,7 +709,7 @@ setSelectedRegion = (region)->
   oldRegion = selectedRegion
   selectedRegion = region
 
-  jQuery("#regionBtn").html selectedRegion
+  jQuery("#regionBtn span").html selectedRegion
   jQuery("#newsTabBtn a").html "#{selectedRegion}新闻"
   jQuery("#regionBtn").removeAttr "active"
   jQuery(document).attr "title", "#{selectedRegion}疫情实时趋势&新闻"

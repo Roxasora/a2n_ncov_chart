@@ -30,6 +30,15 @@ body {
   .container2 {
     background: #111;
     color: #fff;
+    position: relative;
+    .gradient {
+      position: absolute;
+      top: 0;
+      right: 0;
+      height: 100%;
+      width: 20px;
+      .uGradient(rgba(0,0,0,0), rgba(0,0,0,1));
+    }
   }
 
   .navbar-brand {
@@ -54,6 +63,7 @@ body {
   #regionBtn {
     // // background: #111;
     // border: none;
+    font-weight: 700;
     font-size: 16px;
   }
 }
@@ -64,13 +74,7 @@ body {
   flex-direction: row;
   overflow: auto;
   position: relative;
-  .gradient {
-    position: fixed;
-    right: 0;
-    height: 100%;
-    width: 20px;
-    .uGradient(rgba(0,0,0,0), rgba(0,0,0,1));
-  }
+  
   // ul {
   //   padding: 0 10px;
   //   margin: 0;
@@ -363,7 +367,10 @@ body {
   margin-right: 5px;
   font-size: 1.2em !important;
   position: relative;
-  top: 0.1em;
+  top: 0.05em;
+  &.noMargin {
+    margin-right: 0;
+  }
 }
 
 .footer {

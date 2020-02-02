@@ -25,7 +25,7 @@ html
     link(rel='stylesheet', href='https://static.vuevideo.net/config/roxasora/a2n/bootstrap.min.css')
     link(rel='stylesheet', type='text/css', href='css/index.css')
     //icon font
-    link(rel="stylesheet", href="https:////at.alicdn.com/t/font_1623822_o33e2yoab6i.css")
+    link(rel="stylesheet", href="https:////at.alicdn.com/t/font_1623822_sk933bwq1y.css")
 
     // Global site tag (gtag.js) - Google Analytics
     script(async='', src='https://www.googletagmanager.com/gtag/js?id=UA-78069116-2')
@@ -52,7 +52,9 @@ html
           img.logo(src="https://static.vuevideo.net/config/roxasora/a2n/images/a2nlogo.png", alt="") 
           //- .a2n A2N
           | 实时疫情平台
-        button.ml-auto.btn.btn-sm.btn-light.dropdown-toggle#regionBtn(type='button', data-toggle='collapse', data-target='#navbarSupportedContent', aria-controls='navbarSupportedContent', aria-expanded='false', aria-label='Toggle navigation') 全国
+        button.ml-auto.btn.btn-sm.btn-light.dropdown-toggle#regionBtn(type='button', data-toggle='collapse', data-target='#navbarSupportedContent', aria-controls='navbarSupportedContent', aria-expanded='false', aria-label='Toggle navigation') 
+          i.iconfont.icon-location.noMargin
+          span 全国
 
         select#select(name='select')
           option(value='china') 全国
@@ -71,7 +73,7 @@ html
           li#toolsTabBtn
             a 实用网站大全
           .clearFloat
-          .gradient
+        .gradient
     
     .header.hidden
 
@@ -100,7 +102,9 @@ html
           .card-header#thirdContentCardHeader
             i.iconfont.icon-ditu.text-warning
             span#thirdContentHeaderTitle 全国疫情分布地图
-            a.btn.btn-sm.btn-light#mapPageLink(href="/map") 全屏查看
+            a.btn.btn-sm.btn-light#mapPageLink(href="/map") 
+              i.iconfont.icon-fullscreen.noMargin
+              | 全屏查看
             
           .card-body#thirdCollapseDiv
             #mapChart
