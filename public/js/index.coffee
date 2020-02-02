@@ -25,6 +25,13 @@ selectedPageIndex = -1
 
 safeRegion = ['全国','湖北','北京','广东','山东','上海','广西','黑龙江','江苏','河北','天津','江西','四川','湖南','云南','浙江','台湾','河南','重庆','贵州','香港','安徽','海南','澳门','辽宁','福建','山西','宁夏','吉林','内蒙古','陕西','新疆','甘肃','青海','西藏']
 
+specialLinksForDifferentRegion = {
+  "重庆" : {
+    link : "https://shimo.im/docs/Y9KvWx6Yr3Tpv6JQ",
+    title : "重庆地区必读资讯"
+  }
+}
+
 isPhone = ()->
   userAgentInfo = navigator.userAgent;
   Agents = new Array("Android", "iPhone", "SymbianOS", "Windows Phone", "iPad", "iPod");  
@@ -732,6 +739,15 @@ setSelectedRegion = (region)->
 
     jQuery("#text").addClass "threeItem"
     jQuery("#text .textItem").eq(1).addClass "hidden"
+
+    specialLink = specialLinksForDifferentRegion[selectedRegion]
+    jQuery(".specialLinkItemInA2NPage").remove()
+    if specialLink
+
+      a2nPageSpecialLinkHtml = "<div class='alert alert-danger specialLinkItemInA2NPage' role='alert'><a class='alert-link' href='#{specialLink.link}' target='_blank'> <i class='iconfont icon-bell'></i>#{specialLink.title}</a></div>"
+      jQuery("#a2nPage").prepend a2nPageSpecialLinkHtml
+      jQuery("#all").after a2nPageSpecialLinkHtml
+    
 
   jQuery("#chartTabBtn a").html "#{selectedRegion}疫情"
 
