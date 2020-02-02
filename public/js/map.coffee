@@ -65,6 +65,8 @@ reloadMapChart = ()->
   if mapHasUpdated
     return
 
+  mapChart = echarts.init document.getElementById("mapChart"), 'light'
+
   mapHasUpdated = yes
 
   confirmedDataArray = []
@@ -156,8 +158,6 @@ getURLParamWithKey = (key) ->
 
   
 jQuery(document).ready ->
-  mapChart = echarts.init document.getElementById("mapChart"), 'light'
-
   footerHeight = jQuery(".footer").height() + 30
   windowHeight = jQuery(window).height()
   jQuery("#mapChart").css "height", "#{windowHeight-footerHeight}px"
@@ -182,5 +182,7 @@ jQuery(document).ready ->
 
       a.click();
 
-  requestAllRegionCurrentAreaTreeData()
+  setTimeout ->
+    requestAllRegionCurrentAreaTreeData()
+  , 500
 

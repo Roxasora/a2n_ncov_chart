@@ -1,20 +1,18 @@
 html
   head
-    title A2N疫情实时趋势
+    title A2N疫情实时平台
     meta(charset='utf-8')
     meta(name='renderer', content='webkit')
     meta(name='viewport', content='width=device-width,initial-scale=1.0 user-scalable=no')
     link(rel='shortcut icon', type='image/png', href='favicon_64.ico')
-    // <script type="text/javascript" src="js/jq.1.10.2.js"></script>
-    link(rel='stylesheet', href='https://cdn.jsdelivr.net/npm/bootstrap@4.4.1/dist/css/bootstrap.min.css', integrity='sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh', crossorigin='anonymous')
-    link(rel="stylesheet", href="https:////at.alicdn.com/t/font_1623822_6prssvkqytt.css")
-    script(src='https://cdn.jsdelivr.net/npm/jquery@3.2.1/dist/jquery.min.js')
-    script(src='https://cdn.jsdelivr.net/npm/js-cookie@beta/dist/js.cookie.min.js')
+      
+    script(src='https://static.vuevideo.net/config/roxasora/a2n/jquery.min.js')
+    script(src='https://static.vuevideo.net/config/roxasora/a2n/js.cookie.min.js')
 
     //百度地图 sdk
     script(type='text/javascript', src='http://api.map.baidu.com/api?v=2.0&ak=GIYd9jaUlH7Mrda5HnIdeH65dBajyuVd')
 
-    script(src='https://cdn.jsdelivr.net/npm/bootstrap@4.4.1/dist/js/bootstrap.min.js', integrity='sha384-wfSDF2E50Y2D1uUdj0O3uMBJnjuUD4Ih7YwaYd1iqfktj0Uod8GCExl3Og8ifwB6', crossorigin='anonymous')
+    script(src='https://static.vuevideo.net/config/roxasora/a2n/bootstrap.min.js')
     script(type='text/javascript', src='js/testMap.js?21312')
     script(type='text/javascript', src='js/cityGeo.js?21312')
 
@@ -23,7 +21,11 @@ html
     script(type='text/javascript', src='https://static.vuevideo.net/config/roxasora/a2n/html2canvas.min.js')
 
     script(type='text/javascript', src='js/index.js?21312')
+
+    link(rel='stylesheet', href='https://static.vuevideo.net/config/roxasora/a2n/bootstrap.min.css')
     link(rel='stylesheet', type='text/css', href='css/index.css')
+    //icon font
+    link(rel="stylesheet", href="https:////at.alicdn.com/t/font_1623822_cysengm5wi6.css")
 
     // Global site tag (gtag.js) - Google Analytics
     script(async='', src='https://www.googletagmanager.com/gtag/js?id=UA-78069116-2')
@@ -48,8 +50,9 @@ html
       .container
         a.ml-md-4.navbar-brand(href="https://shimo.im/docs/Y83DY3CY8JH8wkt8")
           img.logo(src="https://static.vuevideo.net/config/roxasora/a2n/images/a2nlogo.png", alt="") 
-          | 实时疫情·新闻·资讯
-        button.ml-auto.btn.btn-light.dropdown-toggle#regionBtn(type='button', data-toggle='collapse', data-target='#navbarSupportedContent', aria-controls='navbarSupportedContent', aria-expanded='false', aria-label='Toggle navigation') 全国
+          //- .a2n A2N
+          | 实时疫情平台
+        button.ml-auto.btn.btn-sm.btn-light.dropdown-toggle#regionBtn(type='button', data-toggle='collapse', data-target='#navbarSupportedContent', aria-controls='navbarSupportedContent', aria-expanded='false', aria-label='Toggle navigation') 全国
 
         select#select(name='select')
           option(value='china') 全国
@@ -57,15 +60,17 @@ html
           option(value='sars') SARS
         .clearFloat
 
-      .container
-        nav.d-flex.justify-content-center#tabNav(aria-label='Page navigation example')
-          ul.pagination
-            li.page-item.active#chartTabBtn
-              a.page-link 实时疫情
-            li.page-item#newsTabBtn
-              a.page-link 全国新闻
-            li.page-item#toolsTabBtn
-              a.page-link 实用网站大全
+      .container2
+        nav#tabNav
+          li.active#chartTabBtn
+            a 实时疫情
+          li#a2nTabBtn
+            a A2N资源库
+          li#newsTabBtn
+            a 全国新闻
+          li#toolsTabBtn
+            a 实用网站大全
+          .clearFloat
     
     .header.hidden
 
@@ -90,7 +95,7 @@ html
         #main
 
       .thirdContent.cardDiv
-        .card.text-white.bg-secondary.mb-3
+        .card.text-white.bg-dark.mb-3
           .card-header#thirdContentCardHeader
             i.iconfont.icon-ditu.text-warning
             span#thirdContentHeaderTitle 全国疫情分布地图
@@ -112,6 +117,29 @@ html
             #secondChart  
             .watermark
 
+    .myPage#a2nPage
+      .alert.alert-primary(role='alert')
+        a.alert-link(href='https://shimo.im/docs/PJ8QYXyqcdjJ9P9h' target='_blank') 
+          i.iconfont.icon-bulb
+          | A2N 科普资源区
+      .alert.alert-secondary(role='alert')
+        a.alert-link(href='https://shimo.im/docs/tRVxVDwdcrwx88xX' target='_blank') 
+          icon-bulb
+          i.iconfont.icon-error
+          |A2N 辟谣资源区
+      .alert.alert-warning(role='alert')
+        a.alert-link(href='https://shimo.im/sheets/wKd63jtYxDDhHjq3/MODOC/' target='_blank') 
+          i.iconfont.icon-car
+          |A2N 国内各省市物资渠道汇总
+      .alert.alert-danger(role='alert')
+        a.alert-link(href='https://h5.peopleapp.com/txcx/index.html' target='_blank') 
+          i.iconfont.icon-moneycollect
+          |A2N 捐赠资料区
+      .alert.alert-success(role='alert')
+        a.alert-link(href='https://shimo.im/docs/GJXPXVRktQdPxRJr' target='_blank') 
+          i.iconfont.icon-file-text
+          |A2N 论文资料翻译区
+
     .myPage#newsPage
       .pagePlaceholder
     .myPage#toolsPage
@@ -123,8 +151,10 @@ html
         a.alert-link(href='https://h5.peopleapp.com/txcx/index.html') 新型肺炎确诊患者相同行程查询工具
       .alert.alert-success(role='alert')
         a.alert-link(href='https://vp.fact.qq.com/home') 实时辟谣·新型冠状病毒肺炎
-      .alert.alert-success(role='alert')
+      .alert.alert-warning(role='alert')
         a.alert-link(href='https://promo.guahao.com/topic/pneumonia') ！微医在线问诊 ！
+      .alert.alert-primary(role='alert')
+        a.alert-link(href='https://shimo.im/docs/QqRwdyKDTyWKyrXG/read') 湖北籍旅客外地可住宿信息合集
       //- .alert.alert-warning(role='alert')
       //-   a.alert-link(href='#') an example link
       //- .alert.alert-info(role='alert')

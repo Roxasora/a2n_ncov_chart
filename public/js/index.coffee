@@ -15,6 +15,7 @@ allRegionCurrentAreaTreeData = {}
 selectedRegion = "全国"
 
 mainChinaData = []
+newsData = []
 
 firstChart = null
 secondChart = null
@@ -600,6 +601,9 @@ timeStrWithUnix = (timeStamp) ->
       return "#{day} #{monthStr},#{year}"
 
 requestNewsData = ()->
+  if newsData.length
+    return
+  
   startLoading()
   url = ""
   if selectedRegion == '全国'
@@ -615,6 +619,7 @@ requestNewsData = ()->
       "Access-Control-Allow-Origin" : "http://#{window.location.host}"
     }
     success : (result)->
+      newsData = result.results
       htmlStr = ""
       for item in result.results
         htmlStr += "<div class='list-group'>
@@ -629,17 +634,16 @@ requestNewsData = ()->
 
       jQuery("#newsPage").html htmlStr
       stopLoading()
-    
 
 
 jumpToPage = (index)->
   if selectedPageIndex == index
     return
 
-  jQuery(".page-item").removeClass "active"
-  jQuery(".page-item").eq(index).addClass "active"
+  jQuery("#tabNav li").removeClass "active"
+  jQuery("#tabNav li").eq(index).addClass "active"
   
-  pageArray = [jQuery("#chartPage"), jQuery("#newsPage"), jQuery("#toolsPage")]
+  pageArray = [jQuery("#chartPage"), jQuery("#a2nPage"), jQuery("#newsPage"), jQuery("#toolsPage")]
   currentPage = pageArray[selectedPageIndex]
   if selectedPageIndex == -1
     currentPage = pageArray[0]
@@ -653,9 +657,13 @@ jumpToPage = (index)->
   selectedPageIndex = index
 
   if selectedPageIndex == 0
-    requestMainChinaData()
-  if selectedPageIndex == 1
-    requestNewsData()
+    if allRegionCurrentAreaTreeData.chinaTotal
+      reload()
+    else
+      requestMainChinaData()
+  if selectedPageIndex == 2
+    if newsData.length == 0
+      requestNewsData()
   else
     stopLoading()
 
@@ -760,10 +768,10 @@ jQuery(document).ready ->
     setSelectedRegion jQuery(this).val()
     Cookies.set "selectedRegion", selectedRegion
 
-
     if selectedPageIndex == 0
       reload()
     else if selectedPageIndex == 1
+      newsData = []
       requestNewsData()
 
   jQuery("#export").click ->
@@ -793,7 +801,7 @@ jQuery(document).ready ->
   jQuery("#collapseExample").on "hidden.bs.collapse", ->
     jQuery("#secondContentCardHeader").removeClass "dropup"
 
-  jQuery(".page-item").click ->
+  jQuery("#tabNav li").click ->
     index = jQuery(this).index()
     if selectedPageIndex != index
       jumpToPage index

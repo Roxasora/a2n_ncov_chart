@@ -122,15 +122,16 @@ window.nCon_data = [
     {
         "date": "2020-01-20T16:00:00.000Z",
         "confirmed": 440,
-        "curedCase": 25,
+        "curedCase": 28,
         "dead": 9,
         "suspected": 37,
-        "serious": 102
+        "serious": 102,
+        "undefined": "http://www.nhc.gov.cn/xcs/yqtb/202001/a3c8b5144067417889d8760254b1a7ca.shtml"
     },
     {
         "date": "2020-01-21T16:00:00.000Z",
         "confirmed": 571,
-        "curedCase": 25,
+        "curedCase": 28,
         "dead": 17,
         "suspected": 393,
         "serious": 95
@@ -201,5 +202,12 @@ window.nCon_data = [
         "curedCase": 243,
         "dead": 259,
         "suspected": 17988
+    },
+    {
+        "date": "2020-01-31T16:00:00.000Z",
+        "confirmed": 14380,
+        "curedCase": 328,
+        "dead": 304,
+        "suspected": 19544
     }
 ]

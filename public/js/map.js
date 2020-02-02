@@ -89,6 +89,7 @@
     if (mapHasUpdated) {
       return;
     }
+    mapChart = echarts.init(document.getElementById("mapChart"), 'light');
     mapHasUpdated = true;
     confirmedDataArray = [];
     _ref = allRegionCurrentAreaTreeData.areaTree[0].children;
@@ -176,7 +177,6 @@
 
   jQuery(document).ready(function() {
     var footerHeight, windowHeight;
-    mapChart = echarts.init(document.getElementById("mapChart"), 'light');
     footerHeight = jQuery(".footer").height() + 30;
     windowHeight = jQuery(window).height();
     jQuery("#mapChart").css("height", "" + (windowHeight - footerHeight) + "px");
@@ -199,7 +199,9 @@
         return a.click();
       });
     });
-    return requestAllRegionCurrentAreaTreeData();
+    return setTimeout(function() {
+      return requestAllRegionCurrentAreaTreeData();
+    }, 500);
   });
 
 }).call(this);

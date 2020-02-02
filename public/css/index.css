@@ -6,6 +6,7 @@ body {
   margin: 0 auto;
 }
 .navbar {
+  padding: 0;
   position: fixed;
   top: 0;
   width: 100%;
@@ -14,29 +15,67 @@ body {
   z-index: 99999999;
   display: block;
 }
+.navbar .container {
+  padding: 3px 10px;
+}
+.navbar .container2 {
+  background: #111;
+  color: #fff;
+}
 .navbar .navbar-brand {
   font-size: 1em;
   font-weight: 600;
-  color: #676767;
+  color: #9c9c9c;
 }
 .navbar .navbar-brand .logo {
   height: 20px;
+  margin-right: 5px;
+  font-family: "Arial Black";
+  font-weight: 1000;
+}
+.navbar .navbar-brand .a2n {
+  color: #fff;
+  display: inline-block;
   margin-right: 5px;
 }
 .navbar .dropdown-toggle {
   position: relative;
 }
-.navbar #tabNav {
-  margin: 0 auto;
-  position: relative;
-  top: 10px;
+.navbar #regionBtn {
+  font-size: 16px;
+}
+#tabNav {
+  padding: 0 10px;
+  display: flex;
+  flex-direction: row;
+  overflow: auto;
+}
+#tabNav li {
+  flex: none;
+  float: left;
+  list-style: none;
+  font-size: 15px;
+  padding: 0 10px;
+}
+#tabNav li a {
+  padding: 11px 0px;
+  display: inline-block;
+}
+#tabNav li.active {
+  color: #ff4141;
+  font-size: 16px;
+}
+#tabNav li.active a {
+  padding: 10px 0px;
+  border-bottom: 3px solid #ff4141;
+  font-weight: 600;
 }
 .header {
   height: 30px;
 }
 #select {
   position: absolute;
-  right: 20px;
+  right: 10px;
   top: 0;
   width: 80px;
   height: 45px;
@@ -152,7 +191,7 @@ body {
   height: auto;
   position: absolute;
   left: 20%;
-  top: 45%;
+  top: 35%;
   opacity: 0.04;
   background: url(https://static.vuevideo.net/config/roxasora/a2n/images/watermark.png);
   background-size: cover;
@@ -214,7 +253,7 @@ body {
   transform: scale(0.8333);
 }
 .myPage {
-  margin-top: 100px;
+  margin-top: 87px;
   padding: 20px;
   display: none;
 }
@@ -224,6 +263,9 @@ body {
 #chartPage {
   padding: 0;
   display: block;
+}
+#a2nPage .alert {
+  padding: 1.25rem 1.25rem;
 }
 #newsPage .newsSummary {
   height: 50px;
