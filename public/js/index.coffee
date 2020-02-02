@@ -29,6 +29,10 @@ specialLinksForDifferentRegion = {
   "重庆" : {
     link : "https://shimo.im/docs/Y9KvWx6Yr3Tpv6JQ",
     title : "重庆地区必读资讯"
+  },
+  "湖北" : {
+    link : "http://wjw.wuhan.gov.cn/front/web/showDetail/2020020109316",
+    title : "武汉23家定点医院床位信息"
   }
 }
 
