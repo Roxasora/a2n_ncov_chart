@@ -352,7 +352,7 @@
         },
         tooltip: {
           trigger: 'item',
-          formatter: '{a} <br/>{b} : {c} ({d}%)'
+          show: false
         },
         legend: {
           orient: 'vertical',

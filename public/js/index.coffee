@@ -396,7 +396,8 @@ reloadSecondChart = ()->
       }
       tooltip: {
           trigger: 'item',
-          formatter: '{a} <br/>{b} : {c} ({d}%)'
+          show : false
+          # formatter: '{a} <br/>{b} : {c} ({d}%)'
       },
       legend: {
           orient: 'vertical',
