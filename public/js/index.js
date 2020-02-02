@@ -132,11 +132,11 @@
     deadData = [];
     suspectedData = [];
     dataOffset = 0;
-    if (nConData.length > 14) {
-      dataOffset = nConData.length - 14 - 1;
+    if (nConData.length > 12) {
+      nConData = nConData.slice(nConData.length - 1 - 12, nConData.length - 1);
     }
-    for (i = _i = 0, _ref = nConData.length - dataOffset; _i < _ref; i = _i += 1) {
-      item = nConData[i + dataOffset];
+    for (i = _i = 0, _ref = nConData.length - 1; _i < _ref; i = _i += 1) {
+      item = nConData[i];
       date = new Date(item['date']);
       xAxisData[i] = item.date;
       confirmData[i] = item["confirmed"];
@@ -411,7 +411,10 @@
         }
         console.log(mainChinaData);
         mainChinaData.sort(function(a, b) {
-          return parseFloat(a.date) - parseFloat(b.date);
+          var splicedATime, splicedBTime;
+          splicedATime = a.date.split("/");
+          splicedBTime = b.date.split("/");
+          return parseFloat(splicedATime[0]) * 1000 + parseFloat(splicedATime[1]) - (parseFloat(splicedBTime[0]) * 1000 + parseFloat(splicedBTime[1]));
         });
         return requestAllRegionCurrentAreaTreeData(function() {
           return requestallRegionTrendData(function() {

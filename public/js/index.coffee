@@ -120,15 +120,15 @@ reload = ()->
   # for item in nConData
 
   dataOffset = 0
-  if nConData.length > 14
-    dataOffset = nConData.length - 14 - 1
+  if nConData.length > 12
+    # dataOffset = nConData.length - 12 - 1
+    nConData = nConData.slice(nConData.length - 1 - 12, nConData.length-1)
   
   # if isMainChina
   #   dataOffset = 7
 
-
-  for i in [0...nConData.length-dataOffset] by 1
-    item = nConData[i+dataOffset]
+  for i in [0...nConData.length-1] by 1
+    item = nConData[i]
 
     date = new Date (item['date'])
 
@@ -452,7 +452,9 @@ requestMainChinaData = ->
         item.suspected = item.suspect
       console.log mainChinaData
       mainChinaData.sort (a,b)->
-        return parseFloat(a.date) - parseFloat(b.date)
+        splicedATime = a.date.split "/"
+        splicedBTime = b.date.split "/"
+        return parseFloat(splicedATime[0]) * 1000 + parseFloat(splicedATime[1]) - (parseFloat(splicedBTime[0]) * 1000 + parseFloat(splicedBTime[1]))
 
       requestAllRegionCurrentAreaTreeData ()->
         requestallRegionTrendData ()->
