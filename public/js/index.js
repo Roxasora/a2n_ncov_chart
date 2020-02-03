@@ -648,8 +648,7 @@
       } else {
         requestMainChinaData();
       }
-    }
-    if (selectedPageIndex === 2) {
+    } else if (selectedPageIndex === 2) {
       if (newsData.length === 0) {
         requestNewsData();
       }

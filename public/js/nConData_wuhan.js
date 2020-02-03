@@ -168,5 +168,11 @@ window.nCon_data_wuhan = [
         "confirmed": 4109,
         "curedCase": 138,
         "dead": 224
+    },
+    {
+        "date": "2020-02-01T16:00:00.000Z",
+        "confirmed": 5142,
+        "curedCase": 181,
+        "dead": 265
     }
 ]

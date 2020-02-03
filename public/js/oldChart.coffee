@@ -303,12 +303,12 @@ reload = ()->
   # for item in nConData
 
   dataOffset = 0
-  if isMainChina
-    dataOffset = 7
+  if nConData.length > 16
+    nConData = nConData.slice(nConData.length - 1 - 16, nConData.length)
+  
+  for i in [0...nConData.length] by 1
 
-
-  for i in [0...nConData.length-dataOffset] by 1
-    item = nConData[i+dataOffset]
+    item = nConData[i]
 
     date = new Date (item['date'])
 

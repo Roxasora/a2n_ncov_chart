@@ -125,7 +125,6 @@ reload = ()->
 
   dataOffset = 0
   if nConData.length > 12
-    # dataOffset = nConData.length - 12 - 1
     nConData = nConData.slice(nConData.length - 1 - 12, nConData.length)
   
   # if isMainChina
@@ -676,7 +675,7 @@ jumpToPage = (index)->
       reload()
     else
       requestMainChinaData()
-  if selectedPageIndex == 2
+  else if selectedPageIndex == 2
     if newsData.length == 0
       requestNewsData()
   else

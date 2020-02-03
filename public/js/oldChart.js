@@ -277,11 +277,11 @@
     deadData = [];
     suspectedData = [];
     dataOffset = 0;
-    if (isMainChina) {
-      dataOffset = 7;
+    if (nConData.length > 16) {
+      nConData = nConData.slice(nConData.length - 1 - 16, nConData.length);
     }
-    for (i = _i = 0, _ref = nConData.length - dataOffset; _i < _ref; i = _i += 1) {
-      item = nConData[i + dataOffset];
+    for (i = _i = 0, _ref = nConData.length; _i < _ref; i = _i += 1) {
+      item = nConData[i];
       date = new Date(item['date']);
       xAxisData[i] = "" + (date.getMonth() + 1) + "." + (date.getDate());
       confirmData[i] = item["confirmed"];
