@@ -121,7 +121,7 @@ reloadCompare = ()->
     M = "0" + M
 
 
-  jQuery("#desc").html "(截止至 #{currentDate.getFullYear()}-#{currentDate.getMonth()+1}-#{currentDate.getDate()} #{currentDate.getHours()}:#{M}   以 国家卫建委的新冠病毒数据 及 WHO的SARS数据 制图)"
+  jQuery("#desc").html "(截止至 #{currentDate.getFullYear()}-#{currentDate.getMonth()+1}-#{currentDate.getDate()} #{currentDate.getHours()}:#{M}   以 国家卫健委的新冠病毒数据 及 WHO的SARS数据 制图)"
   option = {
             backgroundColor : "#00101010"
             title: {
@@ -351,7 +351,7 @@ reload = ()->
     M = "0" + M
 
 
-  jQuery("#desc").html "(截止至 #{currentDate.getFullYear()}-#{currentDate.getMonth()+1}-#{currentDate.getDate()} #{currentDate.getHours()}:#{M}   以国家卫建委发布数据制图)"
+  jQuery("#desc").html "(截止至 #{currentDate.getFullYear()}-#{currentDate.getMonth()+1}-#{currentDate.getDate()} #{currentDate.getHours()}:#{M}   以国家卫健委发布数据制图)"
   option = {
             backgroundColor : "#00101010"
             title: {
