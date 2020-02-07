@@ -470,7 +470,7 @@ requestMainChinaData = ->
 
 requestallRegionTrendData = (callback)->
   jQuery.ajax {
-    url : "http://datanews.caixin.com/interactive/2020/iframe/pneumonia-new/data/data2.csv"
+    url : "http://datanews.caixin.com/interactive/2020/pneumonia-h5/data/data2.csv"
     success : (result)->
       convertedJson = csvJSON result
       # console.log convertedJson
