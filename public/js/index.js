@@ -709,13 +709,13 @@
       jQuery("#secondChart").css("height", "260px");
       jQuery("#text").addClass("threeItem");
       jQuery("#text .textItem").eq(1).addClass("hidden");
-      specialLink = specialLinksForDifferentRegion[selectedRegion];
-      jQuery(".specialLinkItemInA2NPage").remove();
-      if (specialLink) {
-        a2nPageSpecialLinkHtml = "<div class='alert alert-danger specialLinkItemInA2NPage' role='alert'><a class='alert-link' href='" + specialLink.link + "' target='_blank'> <i class='iconfont icon-bell'></i>" + specialLink.title + "</a></div>";
-        jQuery("#a2nPage").prepend(a2nPageSpecialLinkHtml);
-        jQuery("#all").after(a2nPageSpecialLinkHtml);
-      }
+    }
+    specialLink = specialLinksForDifferentRegion[selectedRegion];
+    jQuery(".specialLinkItemInA2NPage").remove();
+    if (specialLink) {
+      a2nPageSpecialLinkHtml = "<div class='alert alert-danger specialLinkItemInA2NPage' role='alert'><a class='alert-link' href='" + specialLink.link + "' target='_blank'> <i class='iconfont icon-bell'></i>" + specialLink.title + "</a></div>";
+      jQuery("#a2nPage").prepend(a2nPageSpecialLinkHtml);
+      jQuery("#all").after(a2nPageSpecialLinkHtml);
     }
     jQuery("#chartTabBtn a").html("" + selectedRegion + "疫情");
     if (secondChart) {
