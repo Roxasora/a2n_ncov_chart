@@ -1,0 +1,73 @@
+body {
+    position:absolute;
+    width: 100%;
+    height: 100%;
+    margin: 0;
+	padding: 0;
+}
+
+#map {
+    position:absolute;
+    width: 100%;
+    height: 100%;
+	float: right;
+}
+#hospitalDistrib {
+  position: absolute;
+  right: 0px;
+  bottom: 323px;
+  font-size:15px;
+  z-index: 1500;
+  background-color: #e2e2e2;
+  opacity: 0.85;
+  line-height: 26px;
+}
+#hospitalLegend {
+  position: absolute;
+  right: 0px;
+  bottom: 209px;
+  font-size:15px;
+  z-index: 1500;
+  background-color: #e2e2e2;
+  opacity: 0.85;
+  line-height: 26px;
+}
+#locations {
+  position: absolute;
+  right: 0px;
+  bottom: 181px;
+  font-size:15px;
+  z-index: 1500;
+  background-color: #e2e2e2;
+  opacity: 0.85;
+  line-height: 26px;
+}
+#contourfLegend {
+    position: absolute;
+    right: 0px;
+    bottom: 0px;
+    font-size:15px;
+    z-index: 1500;
+    background-color: #e2e2e2;
+    opacity: 0.85;
+    line-height: 26px;
+  }
+#contourfLegend i {
+    width:15px;
+    height:15px;
+    float:left;
+    margin-top: 4px;
+      margin-bottom: 4px;
+      margin-left: 8px;
+    margin-right: 8px;
+    opacity: 0.8;
+    z-index:1550;
+}
+
+.leaflet-heatmap-layer333 {
+  z-index:2000; 
+}
+
+.hospitalPerspective {
+
+}
