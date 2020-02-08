@@ -349,7 +349,7 @@
               color: deadLineColor
             }
           },
-          label: labelConfig(deadLabelBgColor)
+          label: labelConfig(deadLabelBgColor, 'bottom')
         }, {
           name: '治愈',
           type: 'line',
