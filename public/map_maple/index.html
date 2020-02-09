@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>A2N全国新冠肺炎疫情地图</title>
+    <link rel="stylesheet" href="lib/leaflet/leaflet.css">
+    <link rel="stylesheet" href='css/style.css'>
+
+</head>
+
+<body>
+    <div id='intro' onclick=openIntro()>
+        关于此地图
+    </div>
+    <div id='backToHome'>
+        <a href='http://a2n.io'>
+            返回首页
+            <!-- <img src='data/icon/home.jpg' height='15' width="15"> -->
+        </a>
+    </div>
+    <div id='introText'>
+        作者制作此互动地图的目的是为了从不同维度，向大家更加直观地展示关于武汉新冠肺炎疫情的方方面面，
+        让大家对疫情分布、身边的疫情和防疫设施更加了解。目前，此地图包含了以下功能：
+        <br>· 查看展示针对此次疫情开设了发热门诊和定点救治服务的医院的位置：数据来源是2020年2月2日腾讯疫情的“医疗预防”板块
+        ，医院的位置数据来自高德地图API和腾讯地图API。与腾讯疫情不同的是，我们将所有医院的位置都在地图上展示了出来，
+        方便大家查看医院的分布和位置；
+        <br>· 查看病例位置：此数据由A2N志愿者小组从各地官方发布渠道整理。数据目前不全，还在不断更新。与其他病例位置查看APP不同的是，
+        我们包含了这些地点的网页来源的链接。对于没有包含链接的，我们将努力在后期补全；
+        <br>· 查看确诊人数：数据来源百度疫情。确诊、康复和死亡人数的展示使用了在地图上的文字标注（精确到市级）和填色图展示。
+        行政边界图我们使用的是来自高德地图API的行政边界，并使用了Visvalingam/weighted area法抽稀了90%的边界点。填色图的
+        分级我们使用了K-Means归类法，这种归类法保证了在每一组中数据的差距尽可能最小化，以期减小可视化造成的解读偏差。
+    </div>
+    <div id='disclaimer'>
+        <div id='announcement'>
+            免责声明：我们收集和展示的信息仅供参考，不排除有不准确或者出错的可能性，请勿用于做任何决策的依据。<b>做任何决策（如寻找定点救治医院）之前，请通过官方途径确认信息准确性。</b>
+        </div>
+        <div id='acknowledged' onclick=acknowledged()>
+            已知悉，关闭
+        </div>
+    </div>
+    <div id='hospitalDistrib'>
+        <b>数据更新至：</b><br>2020-02-08 16:30<br><b>数据来源：</b><br>百度疫情<br>腾讯疫情<br>高德地图API<br>腾讯地图API<br>各市卫健委
+    </div>     
+        <!-- <div class='hospitalPerspective'>
+            <input type="radio" name="showHospitalDistrib" value="provinceHospitalDistrib" id="provinceHospitalDistrib">
+            <label for="provinceHospitalDistrib" class="provinceHospitalDistrib2" style='margin-left:-5px'><b>各省医院分布</b></label>
+        </div>
+        <div class='hospitalPerspective'>
+            <input type="radio" name="showHospitalDistrib" value="cityHospitalDistrib" id="cityHospitalDistrib">
+            <label for="cityHospitalDistrib" class="cityHospitalDistrib2" style='margin-left:-5px'><b>各市医院分布</b></label>
+        </div>
+        <div class='hospitalPerspective'>
+            &nbsp<input type="button" name="showHospitalDistrib" value="取消" id="cancelHospitalDistrib">
+        </div>
+    </div> -->
+    <div id='hospitalLegend'>
+        <div class='hospitalPerspective'>
+            <input type="checkbox" name="showHospitals" value="showHospitals" id="showHospitals">
+            <label for="showHospitals" class="showHospitals2" style='margin-left:-5px'><b>显示全部医院</b></label>
+        </div>
+
+        <div class="hospitalLegend">
+            <img src="data/icon/bothHospital.png" width="20px" height="20px">
+            <div class=" hospitalLabel" style="margin-top:-28px; margin-left:18px; line-height:22px">&nbsp定点救治<br>+发热门诊</div>
+        </div>
+        <div class="hospitalLegend">
+            <img src="data/icon/rescueHospital.png" width="20px" height="20px">
+            <div class="hospitalLabel" style="margin-top:-28px; margin-left:18px; line-height:22px">&nbsp定点救治</div>
+        </div>
+        <div class="hospitalLegend">
+            <img src="data/icon/feverHospital.png" width="20px" height="20px">
+            <div class="hospitalLabel" style="margin-top:-28px; margin-left:18px; line-height:22px">&nbsp发热门诊</div>
+        </div>
+    </div>
+    <div id='locations'>
+        <div>
+            <input type="checkbox" name="showLocations" value="showLocations" id="showLocations">
+            <label for="showLocations" class="showLocations2" style='margin-left:-5px'><b>病例精确位置</b></label>
+        </div>
+    </div>
+    <div id='contourfLegend'>
+        <div>
+            <input type="checkbox" name="showContacted" value="showContacted" id="showContacted">
+            <label for="showContacted" class="showContacted2" style='margin-left:-5px'><b>显示确诊人数</b></label>
+        </div>
+    </div>
+    <div id='map'></div>
+
+    <script type="text/javascript" src="lib/leaflet/leaflet.js"></script>
+    <script type="text/javascript" src="lib/jquery-3.4.1.min.js"></script>
+    <script type="text/javascript" src="lib/d3.v5.min.js"></script>
+    <script type="text/javascript" src="lib/topojson.v3.min.js"></script>
+
+    <!-- <!-- <script type="text/javascript" src="lib/leaflet-omnivore.min.js"></script> --> -->
+    <!-- <script type="text/javascript" src="lib/Leaflet.VectorGrid.bundled.js"></script> -->
+    <!-- <script src="https://unpkg.com/leaflet.vectorgrid@latest/dist/Leaflet.VectorGrid.bundled.js"></script>
+    <!-- <script src="https://unpkg.com/leaflet.vectorgrid@latest/dist/Leaflet.VectorGrid.js"></script> --> -->
+    <!-- <script src="https://unpkg.com/geojson-vt@3.2.0/geojson-vt.js"></script> -->
+
+    <script src='https://unpkg.com/simple-statistics@7.0.2/dist/simple-statistics.min.js'></script>
+    <script type="text/javascript" src="lib/L.CanvasOverlay_0.7.js"></script>
+
+    <script type="text/javascript" src="data/2020-02-09/clusters_2020-02-09-20-00_2.js"></script>
+    <script type="text/javascript" src="lib/svg-icon.js"></script>
+
+    <script type="text/javascript" src="js/main.js"></script>
+</body>
+
+</html>
