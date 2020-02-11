@@ -10,10 +10,13 @@ curedLabelBgColor = '#3A780A'
 deadLabelBgColor = '#841D1D'
 suspectedLabelBgColor = '#996294'
 
-allRegionData = {}
+allRegionTrendData = {}
+allRegionCurrentAreaTreeData = {}
 selectedRegion = "全国"
 
 mainChinaData = []
+
+safeRegion = ['全国','湖北','北京','广东','山东','上海','广西','黑龙江','江苏','河北','天津','江西','四川','湖南','云南','浙江','台湾','河南','重庆','贵州','香港','安徽','海南','澳门','辽宁','福建','山西','宁夏','吉林','内蒙古','陕西','新疆','甘肃','青海','西藏']
 
 isPhone = ()->
   userAgentInfo = navigator.userAgent;
@@ -278,19 +281,20 @@ reload = ()->
 
   nConData
   if isMainChina
-    nConData = window.nCon_data
+    nConData = mainChinaData
     jQuery("#region").html "全国"
     jQuery("#title").html "全国新型冠状病毒相关各类人数折线图"
     jQuery("#confirmed_suffix").html "例 疑似"
     jQuery("#suspected").removeClass "hidden"
     legendData = ['确诊', '疑似', '死亡', '治愈']
   else
-    nConData = window.nCon_data_wuhan
+    nConData = allRegionTrendData[selectedRegion]
+    nConData.pop()
     jQuery("#title").html "#{selectedRegion}新型冠状病毒相关各类人数折线图"
     jQuery("#region").html "#{selectedRegion}"
     jQuery("#confirmed_suffix").html ""
     jQuery("#suspected").addClass "hidden"
-    legendData = ['确诊', '死亡', '治愈']
+    legendData = ['确诊']
 
 
   xAxisData = []
@@ -479,17 +483,26 @@ reload = ()->
             ]
         }
 
-  last = nConData[nConData.length-1]
-  jQuery("#confirmed").html "#{parseInt(last.confirmed)}"
-  jQuery("#suspected").html "#{parseInt(last.suspected)}"
-  jQuery("#cured").html "#{parseInt(last.curedCase)}"
-  jQuery("#dead").html "#{parseInt(last.dead)}"
-
+  if isMainChina
+    mainChinaItem = allRegionCurrentAreaTreeData.chinaTotal
+    jQuery("#confirmed").html mainChinaItem.confirm
+    jQuery("#suspected").html mainChinaItem.suspect
+    jQuery("#cured").html mainChinaItem.heal
+    jQuery("#dead").html mainChinaItem.dead
+  else
+    for provinceItem in allRegionCurrentAreaTreeData.areaTree[0].children
+      if provinceItem.name == selectedRegion
+        jQuery("#confirmed").html provinceItem.total.confirm
+        jQuery("#suspected").html provinceItem.total.suspect
+        jQuery("#cured").html provinceItem.total.heal
+        jQuery("#dead").html provinceItem.total.dead
+        break
 
   myChart.setOption option
   # sarsChart.setOption option
 
 requestMainChinaData = ->
+  startLoading()
   apiUrl = "http://view.inews.qq.com/g2/getOnsInfo?name=wuwei_ww_cn_day_counts"
   jQuery.ajax {
     url: '/api_proxy/get?url=' + encodeURIComponent apiUrl
@@ -502,11 +515,70 @@ requestMainChinaData = ->
         item.suspected = item.suspect
       console.log mainChinaData
       mainChinaData.sort (a,b)->
-        return parseFloat(a.date) - parseFloat(b.date)
-      requestAllRegionData()
+        splicedATime = a.date.split "/"
+        splicedBTime = b.date.split "/"
+        return parseFloat(splicedATime[0]) * 1000 + parseFloat(splicedATime[1]) - (parseFloat(splicedBTime[0]) * 1000 + parseFloat(splicedBTime[1]))
+
+      requestAllRegionCurrentAreaTreeData ()->
+        requestallRegionTrendData ()->
+          reloadSelect()
+          reload()
+          stopLoading()
       
   }
 
+requestallRegionTrendData = (callback)->
+  jQuery.ajax {
+    url : "http://datanews.caixin.com/interactive/2020/pneumonia-h5/data/data2.csv"
+    success : (result)->
+      convertedJson = csvJSON result
+      # console.log convertedJson
+
+      allRegionTrendData = {}
+
+      for item in convertedJson
+        allKeys = Object.keys item
+        time
+        for key in allKeys
+          if key == "time"
+            #时间
+            time = item[key]
+          else
+            number = item[key]
+            if not allRegionTrendData[key]
+              allRegionTrendData[key.replace("\r", "")] = []
+            allRegionTrendData[key.replace("\r", "")].push {
+              date : time
+              confirmed : number
+            }
+      if callback
+        callback()
+      
+
+      # console.log allRegionTrendData
+  }
+
+requestAllRegionCurrentAreaTreeData = (callback)->
+  apiUrl = "https://view.inews.qq.com/g2/getOnsInfo?name=disease_h5"
+  jQuery.ajax {
+    url: '/api_proxy/get?url=' + encodeURIComponent apiUrl
+    success: (result)->
+      jsonStr = result.data
+      allRegionCurrentAreaTreeData = JSON.parse jsonStr
+
+      chinaTotal = allRegionCurrentAreaTreeData.chinaTotal
+      mainChinaData[mainChinaData.length - 1].curedCase = chinaTotal.heal
+      mainChinaData[mainChinaData.length - 1].confirmed = chinaTotal.confirm
+      mainChinaData[mainChinaData.length - 1].suspected = chinaTotal.suspect
+      mainChinaData[mainChinaData.length - 1].dead = chinaTotal.dead
+
+      jQuery("#timeStamp").html "截止至：#{allRegionCurrentAreaTreeData.lastUpdateTime}"
+      
+      console.log allRegionCurrentAreaTreeData
+
+      if callback
+        callback()
+  }
 
 requestAllRegionData = ->
   jQuery.ajax {
@@ -539,11 +611,15 @@ requestAllRegionData = ->
 
 reloadSelect = ->
   optionsHtml = ""
-  for key in Object.keys(allRegionData)
-    item = allRegionData[key]
-    optionsHtml += "<option value ='#{key}'>#{key}</option>"
+  # arrayStr = ""
+  # for key in Object.keys(allRegionTrendData)
+  for item in safeRegion
+    # item = allRegionTrendData[key]
+    optionsHtml += "<option value ='#{item}'>#{item}</option>"
+    # arrayStr += "'#{key}',"
 
   jQuery("#select").html optionsHtml
+  jQuery("#select").val selectedRegion
 
 
 jQuery(document).ready ->
@@ -579,6 +655,12 @@ jQuery(document).ready ->
 
       a.click();
 
-  reload()
+  # reload()
   # requestAllRegionData()
-  # requestMainChinaData()
+  requestMainChinaData()
+
+startLoading = () ->
+  jQuery("#loadingContainer").fadeIn()
+
+stopLoading = () ->
+  jQuery("#loadingContainer").fadeOut()

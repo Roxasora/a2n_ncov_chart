@@ -28,8 +28,7 @@ html
     .header
       select#select(name='select')
         option(value='全国') 全国
-        option(value='武汉') 武汉
-        option(value='sars') SARS
+        option(value='湖北') 湖北
       button#export 保存当前折线图
       .clearFloat
     #all
@@ -50,3 +49,6 @@ html
         |       例
         br
         span#stamp 由 A2N 志愿者制图（微博：A2N抗击新型冠状病毒）
+    #loadingContainer
+      .spinner-border.text-primary(role='status')
+        span.sr-only Loading...
