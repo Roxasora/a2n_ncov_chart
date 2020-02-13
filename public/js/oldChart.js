@@ -267,7 +267,7 @@
       jQuery("#title").html("全国新型冠状病毒相关各类人数折线图");
       jQuery("#confirmed_suffix").html("例 疑似");
       jQuery("#suspected").removeClass("hidden");
-      legendData = ['确诊', '疑似', '死亡', '治愈'];
+      legendData = ['确诊', '疑似', '治愈', '死亡'];
     } else {
       nConData = wuhanData.series;
       nConData.pop();
@@ -275,7 +275,7 @@
       jQuery("#region").html("" + selectedRegion);
       jQuery("#confirmed_suffix").html("");
       jQuery("#suspected").addClass("hidden");
-      legendData = ['确诊'];
+      legendData = ['确诊', '治愈', '死亡'];
     }
     xAxisData = [];
     confirmData = [];
