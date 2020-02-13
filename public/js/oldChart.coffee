@@ -16,6 +16,8 @@ selectedRegion = "全国"
 
 mainChinaData = []
 
+wuhanData = {}
+
 safeRegion = ['全国','湖北','北京','广东','山东','上海','广西','黑龙江','江苏','河北','天津','江西','四川','湖南','云南','浙江','台湾','河南','重庆','贵州','香港','安徽','海南','澳门','辽宁','福建','山西','宁夏','吉林','内蒙古','陕西','新疆','甘肃','青海','西藏']
 
 isPhone = ()->
@@ -288,7 +290,7 @@ reload = ()->
     jQuery("#suspected").removeClass "hidden"
     legendData = ['确诊', '疑似', '死亡', '治愈']
   else
-    nConData = allRegionTrendData[selectedRegion]
+    nConData = wuhanData.series
     nConData.pop()
     jQuery("#title").html "#{selectedRegion}新型冠状病毒相关各类人数折线图"
     jQuery("#region").html "#{selectedRegion}"
@@ -490,13 +492,9 @@ reload = ()->
     jQuery("#cured").html mainChinaItem.heal
     jQuery("#dead").html mainChinaItem.dead
   else
-    for provinceItem in allRegionCurrentAreaTreeData.areaTree[0].children
-      if provinceItem.name == selectedRegion
-        jQuery("#confirmed").html provinceItem.total.confirm
-        jQuery("#suspected").html provinceItem.total.suspect
-        jQuery("#cured").html provinceItem.total.heal
-        jQuery("#dead").html provinceItem.total.dead
-        break
+    jQuery("#confirmed").html wuhanData.cityTotal.confirmedTotal
+    jQuery("#cured").html wuhanData.cityTotal.curesTotal
+    jQuery("#dead").html wuhanData.cityTotal.deathsTotal
 
   myChart.setOption option
   # sarsChart.setOption option
@@ -520,11 +518,38 @@ requestMainChinaData = ->
         return parseFloat(splicedATime[0]) * 1000 + parseFloat(splicedATime[1]) - (parseFloat(splicedBTime[0]) * 1000 + parseFloat(splicedBTime[1]))
 
       requestAllRegionCurrentAreaTreeData ()->
-        requestallRegionTrendData ()->
-          reloadSelect()
+        requestWuhanData ()->
+      #   requestallRegionTrendData ()->
+      #     reloadSelect()
           reload()
           stopLoading()
       
+  }
+
+requestWuhanData = (callback)->
+  apiUrl = "https://i.snssdk.com/forum/ncov_data/?data_type=%5B1%5D&city_code=%5B%22420100%22%5D"
+  jQuery.ajax {
+    url: '/api_proxy/get?url=' + encodeURIComponent apiUrl
+    success : (result)->
+      wuhanData = JSON.parse (JSON.parse result).ncov_city_data['420100']
+
+      for item in wuhanData.series
+        item.confirmed = item.confirmedNum
+        item.curedCase = item.curesNum
+        item.dead = item.deathsNum
+
+      wuhanData.series.sort (a,b)->
+        splicedATime = a.date.split "-"
+        splicedBTime = b.date.split "-"
+        return parseFloat(splicedATime[1]) * 1000 + parseFloat(splicedATime[2]) - (parseFloat(splicedBTime[1]) * 1000 + parseFloat(splicedBTime[2]))
+      
+      console.log wuhanData
+
+      if callback
+        callback()
+      
+
+      # console.log allRegionTrendData
   }
 
 requestallRegionTrendData = (callback)->
