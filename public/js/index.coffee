@@ -338,6 +338,11 @@ reloadSecondChart = ()->
       legend: {
           data: legendData
       },
+      grid: { 
+        x: 50,
+        x2: 30,
+        y2: 10,
+      },
       xAxis: {
           type: 'value',
           boundaryGap: [0, 0.01]
