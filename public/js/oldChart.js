@@ -270,7 +270,6 @@
       legendData = ['确诊', '疑似', '治愈', '死亡'];
     } else {
       nConData = wuhanData.series;
-      nConData.pop();
       jQuery("#title").html("" + selectedRegion + "新型冠状病毒相关各类人数折线图");
       jQuery("#region").html("" + selectedRegion);
       jQuery("#confirmed_suffix").html("");

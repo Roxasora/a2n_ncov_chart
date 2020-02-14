@@ -197,7 +197,7 @@
           type: 'value',
           axisLabel: {
             textStyle: {
-              fontSize: 8
+              fontSize: 6
             }
           }
         }
@@ -222,7 +222,7 @@
               color: deadLineColor
             }
           },
-          label: labelConfig(deadLabelBgColor)
+          label: labelConfig(deadLabelBgColor, '70px')
         }, {
           name: '治愈',
           type: 'line',

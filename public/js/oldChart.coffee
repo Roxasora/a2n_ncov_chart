@@ -291,7 +291,7 @@ reload = ()->
     legendData = ['确诊', '疑似', '治愈', '死亡']
   else
     nConData = wuhanData.series
-    nConData.pop()
+    # nConData.pop()
     jQuery("#title").html "#{selectedRegion}新型冠状病毒相关各类人数折线图"
     jQuery("#region").html "#{selectedRegion}"
     jQuery("#confirmed_suffix").html ""
@@ -542,6 +542,22 @@ requestWuhanData = (callback)->
         splicedATime = a.date.split "-"
         splicedBTime = b.date.split "-"
         return parseFloat(splicedATime[1]) * 1000 + parseFloat(splicedATime[2]) - (parseFloat(splicedBTime[1]) * 1000 + parseFloat(splicedBTime[2]))
+
+      # lastItem = wuhanData.series[wuhanData.series.length-1]
+      # lastDayDate = new Date(lastItem.date)
+      # yesToday = new Date()
+      # yesToday.setDate(yesToday.getDate() - 1)
+
+      # if lastDayDate.getMonth() != yesToday.getMonth() or  lastDayDate.getDate() != yesToday.getDate()
+      #   #最后一天不是昨天
+      #   yesTodayItem = {
+      #     date : "#{yesToday.getFullYear()}-#{yesToday.getMonth()}-#{yesToday.getDate()}"
+      #     confirmed : wuhanData.cityIncr.confirmedIncr + lastItem.confirmedNum
+      #     curedCase : wuhanData.cityIncr.curesIncr + lastItem.curedCase
+      #     dead : wuhanData.cityIncr.deathsIncr + lastItem.dead
+      #   }
+      #   wuhanData.series.push yesTodayItem
+      
       
       console.log wuhanData
 

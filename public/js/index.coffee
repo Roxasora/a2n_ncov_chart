@@ -205,7 +205,7 @@ reload = ()->
                     type: 'value',
                     axisLabel: {
                       textStyle : {
-                        fontSize: 8
+                        fontSize: 6
                       }
                     }                    
                 },
@@ -253,7 +253,7 @@ reload = ()->
                         color: deadLineColor
                     },
                   }
-                  label: labelConfig(deadLabelBgColor)
+                  label: labelConfig(deadLabelBgColor, '70px')
               },
               {
                   name: '治愈',
