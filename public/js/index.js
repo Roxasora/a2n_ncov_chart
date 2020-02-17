@@ -794,7 +794,7 @@
     setTimeout(function() {
       var urlPage;
       urlPage = getURLParamWithKey("p");
-      if (urlPage && parseInt(urlPage) <= 2 && parseInt(urlPage) >= 0) {
+      if (urlPage && parseInt(urlPage) <= 3 && parseInt(urlPage) >= 0) {
         return jumpToPage(parseInt(urlPage));
       } else {
         return jumpToPage(0);

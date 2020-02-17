@@ -836,7 +836,7 @@ jQuery(document).ready ->
   # requestallRegionTrendData()
   setTimeout ()->
     urlPage = getURLParamWithKey "p"
-    if urlPage and parseInt(urlPage) <= 2 and parseInt(urlPage) >= 0
+    if urlPage and parseInt(urlPage) <= 3 and parseInt(urlPage) >= 0
       jumpToPage parseInt urlPage
     else
       jumpToPage 0
