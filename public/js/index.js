@@ -99,8 +99,8 @@
         fontSize: 8,
         fontWeight: "bolder",
         backgroundColor: bgColor,
-        padding: 3,
-        borderRadius: 4
+        padding: 2,
+        borderRadius: 2
       }
     };
   };
@@ -169,7 +169,7 @@
       },
       grid: {
         x: 30,
-        y: 30,
+        y: 50,
         x2: 30,
         y2: 30
       },

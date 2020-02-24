@@ -451,7 +451,7 @@ reload = ()->
                         color: deadLineColor
                     },
                   }
-                  label: labelConfig(deadLabelBgColor, 'bottom')
+                  label: labelConfig(deadLabelBgColor, 'top')
               },
               {
                   name: '治愈',

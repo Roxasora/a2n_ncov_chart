@@ -81,8 +81,8 @@ labelConfig = (bgColor, position) ->
               fontSize : 8
               fontWeight : "bolder"
               backgroundColor : bgColor
-              padding : 3
-              borderRadius: 4
+              padding : 2
+              borderRadius: 2
           }
         }
 
@@ -126,7 +126,7 @@ reload = ()->
   dataOffset = 0
   if nConData.length > 12
     nConData = nConData.slice(nConData.length - 1 - 12, nConData.length)
-  
+
   # if isMainChina
   #   dataOffset = 7
 
@@ -175,7 +175,7 @@ reload = ()->
             },
             grid: {
                 x: 30, 
-                y: 30, 
+                y: 50, 
                 x2: 30, 
                 y2: 30 
             }
