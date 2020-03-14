@@ -41,8 +41,11 @@ app.use(express.static(path.join(__dirname, 'public')));
 // app.use('/share/admin/login', express.static(path.join(__dirname, 'public')));
 
 app.get('/api_proxy/get', function (req, res) {
-  var targetUrl = decodeURIComponent(req.query.url)
+  console.log('originalurl', req.query.url)
+  var targetUrl = req.query.url
+  console.log('url', targetUrl)
   var call = request.get(targetUrl, function (err, resp, body) {
+    console.log("fuck" + err)
     if (err) {
       res.status(call.status)
       res.send(err)

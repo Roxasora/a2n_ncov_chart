@@ -17,6 +17,7 @@ selectedRegion = "全国"
 mainChinaData = []
 
 wuhanData = {}
+overSeasData = {}
 
 safeRegion = ['全国','湖北','北京','广东','山东','上海','广西','黑龙江','江苏','河北','天津','江西','四川','湖南','云南','浙江','台湾','河南','重庆','贵州','香港','安徽','海南','澳门','辽宁','福建','山西','宁夏','吉林','内蒙古','陕西','新疆','甘肃','青海','西藏']
 
@@ -278,6 +279,8 @@ reload = ()->
     reloadCompare()
 
   isMainChina = selectedRegion == "全国"
+  isWuhan = selectedRegion == "武汉"
+  isOversea = selectedRegion == "海外"
 
   legendData = ['确诊', '疑似', '死亡', '治愈']
 
@@ -289,8 +292,16 @@ reload = ()->
     jQuery("#confirmed_suffix").html "例 疑似"
     jQuery("#suspected").removeClass "hidden"
     legendData = ['确诊', '疑似', '治愈', '死亡']
-  else
+  else if isWuhan
     nConData = wuhanData.series
+    # nConData.pop()
+    jQuery("#title").html "#{selectedRegion}新型冠状病毒相关各类人数折线图"
+    jQuery("#region").html "#{selectedRegion}"
+    jQuery("#confirmed_suffix").html ""
+    jQuery("#suspected").addClass "hidden"
+    legendData = ['确诊', '治愈', '死亡']
+  else if isOversea
+    nConData = overSeasData.series
     # nConData.pop()
     jQuery("#title").html "#{selectedRegion}新型冠状病毒相关各类人数折线图"
     jQuery("#region").html "#{selectedRegion}"
@@ -357,7 +368,13 @@ reload = ()->
     M = "0" + M
 
 
-  jQuery("#desc").html "(截止至 #{currentDate.getFullYear()}-#{currentDate.getMonth()+1}-#{currentDate.getDate()} #{currentDate.getHours()}:#{M}   以国家卫健委发布数据制图)"
+  curedLabelPosition = "right"
+  if isOversea
+    jQuery("#desc").html "(截止至 #{currentDate.getFullYear()}-#{currentDate.getMonth()+1}-#{currentDate.getDate()} #{currentDate.getHours()}:#{M}   以各国官方通报和权威媒体数据制图)"
+    curedLabelPosition = "top"
+  else
+    jQuery("#desc").html "(截止至 #{currentDate.getFullYear()}-#{currentDate.getMonth()+1}-#{currentDate.getDate()} #{currentDate.getHours()}:#{M}   以国家卫健委发布数据制图)"
+  
   option = {
             backgroundColor : "#00101010"
             title: {
@@ -462,7 +479,7 @@ reload = ()->
                         color: curedLineColor
                     },
                   }
-                  label: labelConfig(curedLabelBgColor, "right"),
+                  label: labelConfig(curedLabelBgColor, curedLabelPosition),
                   # xAxisIndex: 1,
                   # yAxisIndex: 1,
               },
@@ -491,10 +508,14 @@ reload = ()->
     jQuery("#suspected").html mainChinaItem.suspect
     jQuery("#cured").html mainChinaItem.heal
     jQuery("#dead").html mainChinaItem.dead
-  else
+  else if isWuhan
     jQuery("#confirmed").html wuhanData.cityTotal.confirmedTotal
     jQuery("#cured").html wuhanData.cityTotal.curesTotal
     jQuery("#dead").html wuhanData.cityTotal.deathsTotal
+  else if isOversea
+    jQuery("#confirmed").html overSeasData.total.confirmedTotal
+    jQuery("#cured").html overSeasData.total.curesTotal
+    jQuery("#dead").html overSeasData.total.deathsTotal
 
   myChart.setOption option
   # sarsChart.setOption option
@@ -521,8 +542,9 @@ requestMainChinaData = ->
         requestWuhanData ()->
       #   requestallRegionTrendData ()->
       #     reloadSelect()
-          reload()
-          stopLoading()
+          requestOversearsData ()->
+            reload()
+            stopLoading()
       
   }
 
@@ -650,6 +672,53 @@ requestAllRegionData = ->
 
   }
 
+requestOversearsData = (callback)->
+  apiUrl = "https://i.snssdk.com/forum/ncov_data/?activeWidget=1&city_name=%E5%8C%97%E4%BA%AC&tt_from=weixin&utm_source=weixin&utm_medium=toutiao_ios&utm_campaign=client_share&wxshare_count=1&data_type=%5B2%2C4%5D"
+  jQuery.ajax {
+    url: '/api_proxy/get?url=' + encodeURIComponent apiUrl
+    success : (result)->
+      overSeasData = JSON.parse (JSON.parse result).overseas_data
+
+      for item in overSeasData.series
+        item.confirmed = item.confirmedNum
+        item.curedCase = item.curesNum
+        item.dead = item.deathsNum
+
+      overSeasData.series.sort (a,b)->
+        splicedATime = a.date.split "-"
+        splicedBTime = b.date.split "-"
+        return parseFloat(splicedATime[1]) * 1000 + parseFloat(splicedATime[2]) - (parseFloat(splicedBTime[1]) * 1000 + parseFloat(splicedBTime[2]))
+
+
+      today = new Date()
+      todayItem = {
+        date : "#{today.getFullYear()}-#{today.getMonth()}-#{today.getDate()}"
+        confirmed : overSeasData.total.confirmedTotal
+        curedCase : overSeasData.total.curesTotal
+        dead : overSeasData.total.deathsTotal
+      }
+      overSeasData.series.push todayItem
+      # lastItem = overSeasData.series[overSeasData.series.length-1]
+      # lastDayDate = new Date(lastItem.date)
+      # yesToday = new Date()
+      # yesToday.setDate(yesToday.getDate() - 1)
+
+      # if lastDayDate.getMonth() != yesToday.getMonth() or  lastDayDate.getDate() != yesToday.getDate()
+      #   #最后一天不是昨天
+      #   yesTodayItem = {
+      #     date : "#{yesToday.getFullYear()}-#{yesToday.getMonth()}-#{yesToday.getDate()}"
+      #     confirmed : overSeasData.cityIncr.confirmedIncr + lastItem.confirmedNum
+      #     curedCase : overSeasData.cityIncr.curesIncr + lastItem.curedCase
+      #     dead : overSeasData.cityIncr.deathsIncr + lastItem.dead
+      #   }
+      #   overSeasData.series.push yesTodayItem
+
+      console.log '海外', overSeasData
+
+      if callback
+        callback()
+  }
+
 reloadSelect = ->
   optionsHtml = ""
   # arrayStr = ""
@@ -699,6 +768,7 @@ jQuery(document).ready ->
   # reload()
   # requestAllRegionData()
   requestMainChinaData()
+
 
 startLoading = () ->
   jQuery("#loadingContainer").fadeIn()
