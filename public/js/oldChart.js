@@ -594,7 +594,7 @@
         });
         today = new Date();
         todayItem = {
-          date: "" + (today.getFullYear()) + "-" + (today.getMonth()) + "-" + (today.getDate()),
+          date: "" + (today.getFullYear()) + "-" + (today.getMonth() + 1) + "-" + (today.getDate()),
           confirmed: overSeasData.total.confirmedTotal,
           curedCase: overSeasData.total.curesTotal,
           dead: overSeasData.total.deathsTotal
