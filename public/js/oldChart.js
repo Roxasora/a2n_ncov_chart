@@ -636,17 +636,17 @@
     });
     jQuery("#export").click(function() {
       return html2canvas(document.querySelector("#all")).then(function(canvas) {
-        var a, isSars, isWuhan, now, time;
+        var a, isOversea, isWuhan, now, time;
         a = document.createElement('a');
         a.href = canvas.toDataURL("image/jpeg").replace("image/jpeg", "image/octet-stream");
         isWuhan = jQuery("#select").val() === "武汉";
-        isSars = jQuery("#select").val() === "sars";
+        isOversea = jQuery("#select").val() === "海外";
         now = new Date();
         time = "" + (now.getFullYear()) + "-" + (now.getMonth() + 1) + "-" + (now.getDate());
         if (isWuhan) {
           a.download = "2019-nCov-wuhan-" + time + ".jpg";
-        } else if (isSars) {
-          a.download = "2019-nCov-vc-sars-" + time + ".jpg";
+        } else if (isOversea) {
+          a.download = "2019-nCov-oversea-" + time + ".jpg";
         } else {
           a.download = "2019-nCov-mainChina-" + time + ".jpg";
         }
